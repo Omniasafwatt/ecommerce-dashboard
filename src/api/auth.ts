@@ -66,17 +66,7 @@ export const login = async (
   data: LoginRequest
 ): Promise<ApiResponse<LoginResponse>> => {
   try {
-    // Use mock login in development
-    if (import.meta.env.VITE_APP_ENV !== 'production') {
-      return await mockLogin(data.email, data.password)
-    }
-
-    // Use real API in production
-    const response = await apiClient.post<ApiResponse<LoginResponse>>(
-      '/auth/login',
-      data
-    )
-    return response.data
+    return await mockLogin(data.email, data.password)
   } catch (error: any) {
     throw new Error(error.message || 'Login failed')
   }

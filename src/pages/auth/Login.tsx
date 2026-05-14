@@ -112,8 +112,7 @@ export default function Login() {
   }
 
   const errorMessage = mutationError
-    ? (mutationError as { response?: { data?: { message?: string } } })?.response?.data
-        ?.message ?? t('auth.invalidCredentials')
+    ? (mutationError as Error)?.message ?? t('auth.invalidCredentials')
     : null
 
   return (
