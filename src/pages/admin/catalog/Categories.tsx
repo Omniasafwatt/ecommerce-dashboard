@@ -1,18 +1,10 @@
 import { useState } from 'react'
 import { Grid, Plus, Pencil, Trash2, X, Search, ChevronRight } from 'lucide-react'
+import type { Category } from '@/types/product'
 import { MOCK_CATEGORIES as MOCK } from '@/mock/mock.catalog'
 
-interface Category {
-  id: string | number
-  nameEn: string
-  nameAr: string
-  parent?: string
-  productCount: number
-  status: 'active' | 'inactive'
-}
 
-
-interface FormData { nameEn: string; nameAr: string; parent: string; status: 'active' | 'inactive' }
+interface FormData { nameEn: string; nameAr: string; parentId: string; status: 'active' | 'inactive' }
 
 export default function Categories() {
   const [items, setItems] = useState<Category[]>(MOCK)
@@ -20,20 +12,20 @@ export default function Categories() {
   const [modalOpen, setModalOpen] = useState(false)
   const [editing, setEditing] = useState<Category | null>(null)
   const [deleteId, setDeleteId] = useState<string | number | null>(null)
-  const [form, setForm] = useState<FormData>({ nameEn: '', nameAr: '', parent: '', status: 'active' })
+  const [form, setForm] = useState<FormData>({ nameEn: '', nameAr: '', parentId: '', status: 'active' })
 
   const filtered = items.filter(i => !search || i.nameEn.toLowerCase().includes(search.toLowerCase()))
-  const parentCategories = items.filter(i => !i.parent)
+  const parentCategories = items.filter(i => !i.parentId)
 
-  const openCreate = () => { setEditing(null); setForm({ nameEn: '', nameAr: '', parent: '', status: 'active' }); setModalOpen(true) }
-  const openEdit = (item: Category) => { setEditing(item); setForm({ nameEn: item.nameEn, nameAr: item.nameAr, parent: item.parent || '', status: item.status }); setModalOpen(true) }
+  const openCreate = () => { setEditing(null); setForm({ nameEn: '', nameAr: '', parentId: '', status: 'active' }); setModalOpen(true) }
+  const openEdit = (item: Category) => { setEditing(item); setForm({ nameEn: item.nameEn, nameAr: item.nameAr, parentId: item.parentId || '', status: item.status }); setModalOpen(true) }
 
   const handleSave = () => {
     if (!form.nameEn.trim()) return
     if (editing) {
-      setItems(prev => prev.map(i => i.id === editing.id ? { ...i, nameEn: form.nameEn, nameAr: form.nameAr, parent: form.parent || undefined, status: form.status } : i))
+      setItems(prev => prev.map(i => i.id === editing.id ? { ...i, nameEn: form.nameEn, nameAr: form.nameAr, parentId: form.parentId || undefined, status: form.status } : i))
     } else {
-      setItems(prev => [...prev, { id: Date.now(), nameEn: form.nameEn, nameAr: form.nameAr, parent: form.parent || undefined, productCount: 0, status: form.status }])
+      setItems(prev => [...prev, { id: Date.now(), nameEn: form.nameEn, nameAr: form.nameAr, parentId: form.parentId || undefined, productCount: 0, status: form.status, createdAt: '', updatedAt: '' }])
     }
     setModalOpen(false)
   }
@@ -71,7 +63,7 @@ export default function Categories() {
                 <tr key={item.id} className="hover:bg-gray-50">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      {item.parent && <ChevronRight size={14} className="text-gray-400" />}
+                      {item.parentId && <ChevronRight size={14} className="text-gray-400" />}
                       <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
                         <Grid size={14} className="text-emerald-600" />
                       </div>
@@ -79,7 +71,7 @@ export default function Categories() {
                     </div>
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-600" dir="rtl">{item.nameAr}</td>
-                  <td className="px-4 py-3 text-sm text-gray-500">{item.parent || <span className="text-gray-300">—</span>}</td>
+                  <td className="px-4 py-3 text-sm text-gray-500">{item.parentId ? items.find(i => i.id === item.parentId)?.nameEn : <span className="text-gray-300">—</span>}</td>
                   <td className="px-4 py-3 text-sm text-gray-600">{item.productCount}</td>
                   <td className="px-4 py-3">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${item.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>{item.status}</span>
@@ -115,9 +107,9 @@ export default function Categories() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Parent Category</label>
-                <select value={form.parent} onChange={e => setForm(f => ({ ...f, parent: e.target.value }))} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <select value={form.parentId} onChange={e => setForm(f => ({ ...f, parentId: e.target.value }))} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                   <option value="">None (Top Level)</option>
-                  {parentCategories.map(c => <option key={c.id} value={c.nameEn}>{c.nameEn}</option>)}
+                  {parentCategories.map(c => <option key={c.id} value={String(c.id)}>{c.nameEn}</option>)}
                 </select>
               </div>
               <div className="flex items-center justify-between">

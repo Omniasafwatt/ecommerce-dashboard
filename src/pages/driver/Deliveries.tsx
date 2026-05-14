@@ -5,20 +5,6 @@ import { MOCK_DRIVER_DELIVERIES as MOCK } from '@/mock/mock.deliveries'
 
 type DeliveryStatus = 'assigned' | 'picked_up' | 'arrived' | 'delivered' | 'failed'
 
-interface Delivery {
-  id: number
-  orderNumber: string
-  customer: string
-  address: string
-  area: string
-  items: number
-  paymentMethod: 'cash' | 'card' | 'wallet'
-  codAmount?: number
-  status: DeliveryStatus
-  date: string
-  time: string
-}
-
 
 const STATUS_CONFIG: Record<DeliveryStatus, { label: string; color: string; bg: string }> = {
   assigned: { label: 'Assigned', color: 'text-blue-700', bg: 'bg-blue-100' },

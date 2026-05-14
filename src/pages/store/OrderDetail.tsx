@@ -36,9 +36,6 @@ export default function StoreOrderDetail() {
   const [rejectReason, setRejectReason] = useState('')
   const [rejectNote, setRejectNote] = useState('')
 
-  // Verify order belongs to current store
-  const isAuthorized = order.storeId === storeId
-
   const advance = () => {
     const next = NEXT_STATUS[order.status]
     if (next) setOrder(prev => ({ ...prev, status: next.status }))

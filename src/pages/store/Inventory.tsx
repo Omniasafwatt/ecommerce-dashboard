@@ -4,18 +4,6 @@ import { useAppSelector } from '@/store'
 import { selectUser } from '@/store/slices/authSlice'
 import { MOCK_STORE_INVENTORY as MOCK } from '@/mock/mock.inventory'
 
-interface StockItem {
-  id: number
-  storeId: string
-  name: string
-  category: string
-  variant: string
-  sku: string
-  stock: number
-  unit: string
-  lastSync: string
-}
-
 
 function getStockStatus(stock: number): { label: string; color: string; bg: string } {
   if (stock === 0) return { label: 'Out of Stock', color: 'text-red-700', bg: 'bg-red-100' }

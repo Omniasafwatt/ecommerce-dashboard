@@ -1,17 +1,8 @@
 import { useState } from 'react'
 import { Layers, Plus, Pencil, Trash2, Search, Package } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import type { Bundle } from '@/types/product'
 import { MOCK_BUNDLES as MOCK } from '@/mock/mock.catalog'
-
-interface BundleComponent { productName: string; variantName?: string; quantity: number }
-interface Bundle {
-  id: number
-  nameEn: string
-  nameAr: string
-  price: number
-  components: BundleComponent[]
-  status: 'active' | 'inactive'
-}
 
 
 export default function Bundles() {

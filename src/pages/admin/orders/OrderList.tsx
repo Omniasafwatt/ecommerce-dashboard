@@ -4,21 +4,6 @@ import { MOCK_ORDER_LIST as MOCK_ORDERS, ORDER_LIST_STORES as STORES, ORDER_LIST
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-interface Order {
-  id: string;
-  orderNumber: string;
-  customerName: string;
-  customerPhone: string;
-  store: string;
-  status: OrderStatus;
-  paymentMethod: PaymentMethod;
-  paymentStatus: PaymentStatus;
-  itemsCount: number;
-  total: number;
-  date: string;
-  governorate: string;
-}
-
 type OrderStatus =
   | "pending"
   | "confirmed"

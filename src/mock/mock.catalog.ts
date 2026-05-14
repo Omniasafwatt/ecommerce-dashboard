@@ -140,7 +140,7 @@ export const MOCK_PRODUCTS: Product[] = [
 
 // Bundles (admin/catalog/Bundles.tsx)
 export const MOCK_BUNDLES = [
-  { id: 1, nameEn: 'Starter Bundle', nameAr: 'باقة البداية', price: 1540.000, components: [{ productName: 'iPhone 15 Pro Max', quantity: 1 }, { productName: 'Apple AirPods Pro (3rd Gen)', quantity: 1 }], status: 'active' },
-  { id: 2, nameEn: 'Gaming Setup', nameAr: 'مجموعة الألعاب', price: 1940.000, components: [{ productName: 'Samsung 65" QLED TV', quantity: 1 }, { productName: 'Sony WH-1000XM5', quantity: 1 }], status: 'active' },
-  { id: 3, nameEn: 'Sports Pack', nameAr: 'باقة الرياضة', price: 188.000, components: [{ productName: 'Nike Air Max 270', quantity: 1 }, { productName: 'Nike Dri-FIT Training Tee', quantity: 2 }], status: 'inactive' },
-]
+  { id: 1, nameEn: 'Starter Bundle', nameAr: 'باقة البداية', price: 1540.000, components: [{ productName: 'iPhone 15 Pro Max', quantity: 1 }, { productName: 'Apple AirPods Pro (3rd Gen)', quantity: 1 }], status: 'active' as const },
+  { id: 2, nameEn: 'Gaming Setup', nameAr: 'مجموعة الألعاب', price: 1940.000, components: [{ productName: 'Samsung 65" QLED TV', quantity: 1 }, { productName: 'Sony WH-1000XM5', quantity: 1 }], status: 'active' as const },
+  { id: 3, nameEn: 'Sports Pack', nameAr: 'باقة الرياضة', price: 188.000, components: [{ productName: 'Nike Air Max 270', quantity: 1 }, { productName: 'Nike Dri-FIT Training Tee', quantity: 2 }], status: 'inactive' as const },
+] as const

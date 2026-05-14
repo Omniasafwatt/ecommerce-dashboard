@@ -3,18 +3,6 @@ import { Search, Eye } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { MOCK_CANCELLATIONS as MOCK } from '@/mock/mock.orders'
 
-interface CancelledOrder {
-  id: number
-  orderNumber: string
-  customer: string
-  items: number
-  reason: string
-  requestedBy: string
-  date: string
-  status: 'pending' | 'processed'
-  refundStatus: 'pending' | 'processed' | 'not_required'
-}
-
 export default function OrderCancellations() {
   const [tab, setTab] = useState<'pending' | 'all'>('pending')
   const [search, setSearch] = useState('')

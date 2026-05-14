@@ -1,27 +1,26 @@
 import { useState } from 'react'
 import { Users as UsersIcon, Plus, Pencil, Search, Shield, Store, Truck } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import type { UserRole } from '@/types/auth'
 import { MOCK_USERS as MOCK } from '@/mock/mock.users'
-
-type Role = 'super_admin' | 'operations_admin' | 'catalog_manager' | 'store_manager' | 'driver' | 'finance' | 'support' | 'marketing'
 
 interface UserItem {
   id: number
   name: string
   email: string
   phone: string
-  role: Role
+  role: UserRole
   store?: string
   status: 'active' | 'inactive'
   lastLogin: string
 }
 
-const ROLE_LABELS: Record<Role, string> = {
+const ROLE_LABELS: Record<UserRole, string> = {
   super_admin: 'Super Admin', operations_admin: 'Operations Admin', catalog_manager: 'Catalog Manager',
   store_manager: 'Store Manager', driver: 'Driver', finance: 'Finance', support: 'Support', marketing: 'Marketing',
 }
 
-const ROLE_COLORS: Record<Role, string> = {
+const ROLE_COLORS: Record<UserRole, string> = {
   super_admin: 'bg-violet-100 text-violet-800', operations_admin: 'bg-blue-100 text-blue-800',
   catalog_manager: 'bg-emerald-100 text-emerald-800', store_manager: 'bg-orange-100 text-orange-800',
   driver: 'bg-lime-100 text-lime-800', finance: 'bg-amber-100 text-amber-800',
@@ -36,7 +35,7 @@ const TABS = [
   { id: 'driver', label: 'Drivers', icon: Truck },
 ]
 
-const ADMIN_ROLES: Role[] = ['super_admin', 'operations_admin', 'catalog_manager', 'finance', 'support', 'marketing']
+const ADMIN_ROLES: UserRole[] = ['super_admin', 'operations_admin', 'catalog_manager', 'finance', 'support', 'marketing']
 
 export default function Users() {
   const [items, setItems] = useState<UserItem[]>(MOCK)
