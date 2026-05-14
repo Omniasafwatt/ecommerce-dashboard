@@ -5,4 +5,4 @@ export const MOCK_USERS = [
   { id: 4, name: 'Driver Ali', email: 'ali@store.com', phone: '+965 4567 8901', role: 'driver' as const, store: 'Mobile2000 - Salmiya', status: 'active' as const, lastLogin: '2025-05-10 07:00' },
   { id: 5, name: 'Finance Team', email: 'finance@store.com', phone: '+965 5678 9012', role: 'finance' as const, status: 'active' as const, lastLogin: '2025-05-08 12:00' },
   { id: 6, name: 'Catalog Admin', email: 'catalog@store.com', phone: '+965 6789 0123', role: 'catalog_manager' as const, status: 'inactive' as const, lastLogin: '2025-05-01 10:00' },
-] as const
+]

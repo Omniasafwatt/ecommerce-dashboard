@@ -3,20 +3,6 @@ import { Search, RefreshCw, Download, Info } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { MOCK_ADMIN_INVENTORY as MOCK } from '@/mock/mock.inventory'
 
-interface InventoryItem {
-  id: number
-  productName: string
-  productNameAr: string
-  variantName?: string
-  sku: string
-  store: string
-  governorate: string
-  area: string
-  stock: number
-  lastSync: string
-}
-
-
 function StockBadge({ stock }: { stock: number }) {
   const { t } = useTranslation()
   if (stock === 0) return <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-red-100 text-red-800">{t('operations.inventory.outOfStockLabel')}</span>

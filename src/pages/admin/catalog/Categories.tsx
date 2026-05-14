@@ -4,7 +4,7 @@ import type { Category } from '@/types/product'
 import { MOCK_CATEGORIES as MOCK } from '@/mock/mock.catalog'
 
 
-interface FormData { nameEn: string; nameAr: string; parentId: string; status: 'active' | 'inactive' }
+interface FormData { nameEn: string; nameAr: string; parentId: string|number ; status: 'active' | 'inactive' }
 
 export default function Categories() {
   const [items, setItems] = useState<Category[]>(MOCK)

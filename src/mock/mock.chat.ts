@@ -26,7 +26,7 @@ export const MOCK_ADMIN_CONVOS = [
       { id: 3, sender: 'customer' as const, text: 'When will I get my refund?', time: '11:30' },
     ],
   },
-] as const
+]
 
 // Store chat threads (store/Chat.tsx) — storeId matches store/Chat.tsx filter logic
 export const MOCK_STORE_THREADS = [
@@ -54,7 +54,7 @@ export const MOCK_STORE_THREADS = [
       { id: 3, sender: 'customer' as const, text: 'Thank you!', time: '09:40' },
     ],
   },
-] as const
+]
 
 // Driver chat contacts (driver/Chat.tsx)
 export const MOCK_DRIVER_CHATS = [
@@ -75,4 +75,4 @@ export const MOCK_DRIVER_CHATS = [
       { id: 2, sender: 'driver' as const, text: 'Delivered successfully.', time: '10:21' },
     ],
   },
-] as const
+]

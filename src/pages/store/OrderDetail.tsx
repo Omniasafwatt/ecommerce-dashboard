@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { ArrowLeft, MapPin, Phone, Package, User, CheckCircle, XCircle, Truck } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
-import { useAppSelector } from '@/store'
-import { selectUser } from '@/store/slices/authSlice'
 import { MOCK_STORE_ORDER_DETAIL as MOCK_ORDER } from '@/mock/mock.store.orders'
 
 type OrderStatus = 'new' | 'accepted' | 'preparing' | 'out_for_delivery' | 'delivered' | 'rejected'
@@ -26,9 +24,6 @@ const NEXT_STATUS: Partial<Record<OrderStatus, { status: OrderStatus; label: str
 }
 
 export default function StoreOrderDetail() {
-  const user = useAppSelector(selectUser)
-  const storeId = user?.storeId || '1'
-  
   useParams()
   const [order, setOrder] = useState(MOCK_ORDER)
   const [selectedDriver, setSelectedDriver] = useState('')

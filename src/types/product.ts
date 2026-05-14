@@ -63,7 +63,8 @@ export interface Bundle extends Timestamps {
 }
 
 export interface BundleComponent {
-  productId: ID
+  productId?: ID
+  productName?: string
   product?: Product
   variantId?: ID
   variant?: ProductVariant

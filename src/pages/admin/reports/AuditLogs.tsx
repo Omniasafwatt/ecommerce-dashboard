@@ -2,19 +2,6 @@ import { useState } from 'react'
 import { Search, Download, Shield } from 'lucide-react'
 import { MOCK_AUDIT_LOGS as MOCK_LOGS } from '@/mock/mock.audit'
 
-interface AuditLog {
-  id: number
-  actor: string
-  role: string
-  action: string
-  module: string
-  target: string
-  ip: string
-  timestamp: string
-  severity: 'info' | 'warning' | 'critical'
-}
-
-
 const SEVERITY_STYLES: Record<string, string> = {
   info: 'bg-blue-100 text-blue-700',
   warning: 'bg-yellow-100 text-yellow-800',

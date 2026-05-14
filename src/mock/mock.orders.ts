@@ -57,7 +57,7 @@ export const MOCK_REFUNDS = [
   { id: 2, orderNumber: 'ORD-2025-0010', customer: 'Dana Al-Rashid', amount: 5.500, reason: 'Wrong item delivered', status: 'pending' as const, date: '2025-05-10 08:00' },
   { id: 3, orderNumber: 'ORD-2025-0002', customer: 'Fatima Hassan', amount: 3.250, reason: 'Item damaged', status: 'approved' as const, date: '2025-05-09 14:00' },
   { id: 4, orderNumber: 'ORD-2025-0001', customer: 'Ahmed Al-Rashid', amount: 1.500, reason: 'Partial cancellation', status: 'rejected' as const, date: '2025-05-08 10:00' },
-] as const
+]
 
 // Refund detail base (RefundDetail.tsx — id is injected from useParams in the component)
 export const MOCK_REFUND_DETAIL_BASE = {

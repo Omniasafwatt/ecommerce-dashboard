@@ -2,13 +2,14 @@ import { useState } from 'react'
 import { Layers, Plus, Pencil, Trash2, Search, Package } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import type { Bundle } from '@/types/product'
+import type { ID } from '@/types/common'
 import { MOCK_BUNDLES as MOCK } from '@/mock/mock.catalog'
 
 
 export default function Bundles() {
-  const [items, setItems] = useState<Bundle[]>(MOCK)
+  const [items, setItems] = useState<Bundle[]>(MOCK as any)
   const [search, setSearch] = useState('')
-  const [deleteId, setDeleteId] = useState<number | null>(null)
+  const [deleteId, setDeleteId] = useState<ID | null>(null)
 
   const filtered = items.filter(i => !search || i.nameEn.toLowerCase().includes(search.toLowerCase()))
 

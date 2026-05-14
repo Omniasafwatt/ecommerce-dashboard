@@ -5,4 +5,4 @@ export const MOCK_REVIEWS = [
   { id: 4, type: 'product' as const, author: 'Fatima Hassan', target: 'Basmati Rice 5kg', rating: 5, comment: 'Great quality rice, always consistent.', status: 'approved' as const, date: '2025-05-08 11:00', orderId: 'ORD-2025-0002' },
   { id: 5, type: 'store' as const, author: 'Ali Al-Kandari', target: 'Mobile2000 - Rumaithiya', rating: 1, comment: 'Wrong items sent twice. Very bad experience.', status: 'pending' as const, date: '2025-05-08 09:30', orderId: 'ORD-2025-0005' },
   { id: 6, type: 'driver' as const, author: 'Dana Al-Rashid', target: 'Driver: Khalid M.', rating: 3, comment: 'Arrived late but was polite.', status: 'hidden' as const, date: '2025-05-07 17:00', orderId: 'ORD-2025-0010' },
-] as const
+]
