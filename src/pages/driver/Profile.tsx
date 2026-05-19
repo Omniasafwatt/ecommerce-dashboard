@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { CheckCircle, Truck, Star, Phone, Mail, LogOut } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { MOCK_DRIVER } from '@/mock/mock.driver'
@@ -16,7 +16,7 @@ export default function DriverProfile() {
   const driver = MOCK_DRIVER
 
   const statCards = [
-    { label: 'Total Deliveries', value: driver.stats.totalDeliveries, icon: <Truck size={18} className="text-blue-600" />, bg: 'bg-blue-50' },
+    { label: 'Total Deliveries', value: driver.stats.totalDeliveries, icon: <Truck size={18} className="text-sky-600" />, bg: 'bg-blue-50' },
     { label: 'Today', value: driver.stats.todayDeliveries, icon: <CheckCircle size={18} className="text-green-600" />, bg: 'bg-green-50' },
     { label: 'On-Time Rate', value: `${driver.stats.onTimeRate}%`, icon: <CheckCircle size={18} className="text-orange-600" />, bg: 'bg-orange-50' },
     { label: 'Avg Rating', value: driver.stats.avgRating, icon: <Star size={18} className="text-yellow-500" />, bg: 'bg-yellow-50' },
@@ -70,7 +70,7 @@ export default function DriverProfile() {
         <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Contact</p>
         <div className="flex items-center gap-3">
           <Phone size={16} className="text-gray-400" />
-          <a href={`tel:${driver.phone}`} className="text-sm text-blue-600">{driver.phone}</a>
+          <a href={`tel:${driver.phone}`} className="text-sm text-sky-600">{driver.phone}</a>
         </div>
         <div className="flex items-center gap-3">
           <Mail size={16} className="text-gray-400" />

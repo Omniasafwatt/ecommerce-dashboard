@@ -1,6 +1,7 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { CreditCard, Banknote, Plus, Pencil, Trash2, X, CheckCircle, XCircle } from 'lucide-react'
 import { MOCK_PAYMENT_RULES as MOCK_RULES } from '@/mock/mock.operations'
+import { useTranslation } from 'react-i18next'
 
 type PaymentMethod = 'tap' | 'cod'
 type RuleType = 'global' | 'governorate' | 'area' | 'store' | 'order_value'
@@ -20,6 +21,7 @@ interface PaymentRule {
 interface FormData { method: PaymentMethod; type: RuleType; target: string; isEnabled: boolean; minOrderValue: string; maxOrderValue: string; status: 'active' | 'inactive' }
 
 export default function PaymentMethods() {
+  const { t } = useTranslation()
   const [rules, setRules] = useState<PaymentRule[]>(MOCK_RULES)
   const [tapEnabled, setTapEnabled] = useState(true)
   const [codEnabled, setCodEnabled] = useState(true)
@@ -54,10 +56,10 @@ export default function PaymentMethods() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Payment Methods</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('nav.paymentMethods', 'Payment Methods')}</h1>
           <p className="text-sm text-gray-500 mt-1">Control payment availability</p>
         </div>
-        <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
+        <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-lg text-sm font-medium hover:bg-sky-600">
           <Plus size={16} />Add Rule
         </button>
       </div>
@@ -65,7 +67,7 @@ export default function PaymentMethods() {
       {/* Method cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         {[
-          { method: 'tap' as PaymentMethod, label: 'Tap Payments', desc: 'Online card payments via Tap gateway', icon: CreditCard, color: 'bg-blue-500', enabled: tapEnabled, setEnabled: setTapEnabled, rules: tapRules },
+          { method: 'tap' as PaymentMethod, label: 'Tap Payments', desc: 'Online card payments via Tap gateway', icon: CreditCard, color: 'bg-sky-500', enabled: tapEnabled, setEnabled: setTapEnabled, rules: tapRules },
           { method: 'cod' as PaymentMethod, label: 'Cash on Delivery', desc: 'Pay with cash upon delivery', icon: Banknote, color: 'bg-emerald-500', enabled: codEnabled, setEnabled: setCodEnabled, rules: codRules },
         ].map(({ method, label, desc, icon: Icon, color, enabled, setEnabled, rules: methodRules }) => (
           <div key={method} className="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
@@ -138,7 +140,7 @@ export default function PaymentMethods() {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      <button onClick={() => { setEditing(rule); setForm({ method: rule.method, type: rule.type, target: rule.target || '', isEnabled: rule.isEnabled, minOrderValue: String(rule.minOrderValue || ''), maxOrderValue: String(rule.maxOrderValue || ''), status: rule.status }); setModalOpen(true) }} className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Pencil size={14} /></button>
+                      <button onClick={() => { setEditing(rule); setForm({ method: rule.method, type: rule.type, target: rule.target || '', isEnabled: rule.isEnabled, minOrderValue: String(rule.minOrderValue || ''), maxOrderValue: String(rule.maxOrderValue || ''), status: rule.status }); setModalOpen(true) }} className="p-1.5 text-gray-400 hover:text-sky-600 hover:bg-blue-50 rounded-lg"><Pencil size={14} /></button>
                       <button onClick={() => setRules(prev => prev.filter(r => r.id !== rule.id))} className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg"><Trash2 size={14} /></button>
                     </div>
                   </td>
@@ -204,7 +206,7 @@ export default function PaymentMethods() {
             </div>
             <div className="flex gap-3 p-5 border-t">
               <button onClick={() => setModalOpen(false)} className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium">Cancel</button>
-              <button onClick={handleSave} className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">Save</button>
+              <button onClick={handleSave} className="flex-1 px-4 py-2 bg-sky-500 text-white rounded-lg text-sm font-medium hover:bg-sky-600">Save</button>
             </div>
           </div>
         </div>

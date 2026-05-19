@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Plus, Pencil, Trash2, X, Search } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { MOCK_BRANDS as MOCK } from '@/mock/mock.catalog'
 
 interface Brand { id: string | number; nameEn: string; nameAr: string; productCount: number; status: 'active' | 'inactive' }
@@ -8,6 +9,7 @@ interface Brand { id: string | number; nameEn: string; nameAr: string; productCo
 interface FormData { nameEn: string; nameAr: string; status: 'active' | 'inactive' }
 
 export default function Brands() {
+  const { t } = useTranslation()
   const [items, setItems] = useState<Brand[]>(MOCK)
   const [search, setSearch] = useState('')
   const [modalOpen, setModalOpen] = useState(false)
@@ -34,11 +36,11 @@ export default function Brands() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Brands</h1>
-          <p className="text-sm text-gray-500 mt-1">{items.length} brands</p>
+          <h1 className="text-2xl font-bold text-gray-900">{t('nav.brands', 'Brands')}</h1>
+          <p className="text-sm text-gray-500 mt-1">{items.length} {t('nav.brands', 'brands').toLowerCase()}</p>
         </div>
-        <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
-          <Plus size={16} />Add Brand
+        <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-lg text-sm font-medium hover:bg-sky-600">
+          <Plus size={16} />{t('common.addBrand', 'Add Brand')}
         </button>
       </div>
 
@@ -46,7 +48,7 @@ export default function Brands() {
         <div className="p-4 border-b border-gray-100">
           <div className="relative max-w-xs">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search brands..." className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input value={search} onChange={e => setSearch(e.target.value)} placeholder={t('common.search', 'Search...')} className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500" />
           </div>
         </div>
         <div className="overflow-x-auto">
@@ -74,7 +76,7 @@ export default function Brands() {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      <button onClick={() => openEdit(item)} className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Pencil size={14} /></button>
+                      <button onClick={() => openEdit(item)} className="p-1.5 text-gray-400 hover:text-sky-600 hover:bg-blue-50 rounded-lg"><Pencil size={14} /></button>
                       <button onClick={() => setDeleteId(item.id)} className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg"><Trash2 size={14} /></button>
                     </div>
                   </td>
@@ -89,29 +91,29 @@ export default function Brands() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-md mx-4">
             <div className="flex items-center justify-between p-5 border-b">
-              <h3 className="font-semibold text-gray-900">{editing ? 'Edit Brand' : 'Add Brand'}</h3>
+              <h3 className="font-semibold text-gray-900">{editing ? t('common.editBrand', 'Edit Brand') : t('common.addBrand', 'Add Brand')}</h3>
               <button onClick={() => setModalOpen(false)}><X size={20} className="text-gray-400" /></button>
             </div>
             <div className="p-5 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Name (English) *</label>
-                <input value={form.nameEn} onChange={e => setForm(f => ({ ...f, nameEn: e.target.value }))} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input value={form.nameEn} onChange={e => setForm(f => ({ ...f, nameEn: e.target.value }))} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Name (Arabic)</label>
-                <input value={form.nameAr} onChange={e => setForm(f => ({ ...f, nameAr: e.target.value }))} dir="rtl" className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input value={form.nameAr} onChange={e => setForm(f => ({ ...f, nameAr: e.target.value }))} dir="rtl" className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500" />
               </div>
               <div className="flex items-center justify-between">
                 <label className="text-sm font-medium text-gray-700">Active</label>
                 <button onClick={() => setForm(f => ({ ...f, status: f.status === 'active' ? 'inactive' : 'active' }))}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${form.status === 'active' ? 'bg-blue-600' : 'bg-gray-200'}`}>
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${form.status === 'active' ? 'bg-sky-500' : 'bg-gray-200'}`}>
                   <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${form.status === 'active' ? 'translate-x-6' : 'translate-x-1'}`} />
                 </button>
               </div>
             </div>
             <div className="flex gap-3 p-5 border-t">
-              <button onClick={() => setModalOpen(false)} className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium">Cancel</button>
-              <button onClick={handleSave} className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">Save</button>
+              <button onClick={() => setModalOpen(false)} className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium">{t('common.cancel', 'Cancel')}</button>
+              <button onClick={handleSave} className="flex-1 px-4 py-2 bg-sky-500 text-white rounded-lg text-sm font-medium hover:bg-sky-600">{t('common.save', 'Save')}</button>
             </div>
           </div>
         </div>
@@ -121,11 +123,11 @@ export default function Brands() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm mx-4 p-6 text-center">
             <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-4"><Trash2 size={20} className="text-red-600" /></div>
-            <h3 className="font-semibold text-gray-900 mb-2">Delete Brand?</h3>
-            <p className="text-sm text-gray-500 mb-5">Products using this brand won't be deleted.</p>
+            <h3 className="font-semibold text-gray-900 mb-2">{t('common.deleteBrand', 'Delete Brand?')}</h3>
+            <p className="text-sm text-gray-500 mb-5">{t('common.deleteBrandDesc', "Products using this brand won't be deleted.")}</p>
             <div className="flex gap-3">
-              <button onClick={() => setDeleteId(null)} className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm">Cancel</button>
-              <button onClick={() => { setItems(prev => prev.filter(i => i.id !== deleteId)); setDeleteId(null) }} className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700">Delete</button>
+              <button onClick={() => setDeleteId(null)} className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm">{t('common.cancel', 'Cancel')}</button>
+              <button onClick={() => { setItems(prev => prev.filter(i => i.id !== deleteId)); setDeleteId(null) }} className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700">{t('common.delete', 'Delete')}</button>
             </div>
           </div>
         </div>

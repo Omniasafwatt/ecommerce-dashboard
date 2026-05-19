@@ -9,7 +9,7 @@ export default function Unauthorized() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-indigo-50 px-4"
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-sky-50 px-4"
       dir={isRtl ? 'rtl' : 'ltr'}
     >
       <div className="w-full max-w-md text-center">
@@ -67,7 +67,7 @@ export default function Unauthorized() {
           <button
             type="button"
             onClick={() => navigate('/')}
-            className="inline-flex items-center gap-1.5 text-sm text-indigo-600 hover:text-indigo-700 hover:underline font-medium transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-sky-600 hover:text-sky-700 hover:underline font-medium transition-colors"
           >
             <Home className="w-3.5 h-3.5" />
             {isRtl ? 'العودة إلى الرئيسية' : 'Back to Home'}

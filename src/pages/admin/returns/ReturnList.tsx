@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface ReturnRequest {
@@ -231,7 +231,7 @@ export default function ReturnList() {
                 }}
                 className={`px-5 py-4 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === tab
-                    ? "border-blue-600 text-blue-600"
+                    ? "border-blue-600 text-sky-600"
                     : "border-transparent text-gray-500 hover:text-gray-700"
                 }`}
               >
@@ -260,7 +260,7 @@ export default function ReturnList() {
                 setStatusFilter(e.target.value);
                 setCurrentPage(1);
               }}
-              className="text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
             >
               <option value="all">All Statuses</option>
               <option value="pending">Pending</option>
@@ -279,7 +279,7 @@ export default function ReturnList() {
                 setDateFrom(e.target.value);
                 setCurrentPage(1);
               }}
-              className="text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500"
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -291,7 +291,7 @@ export default function ReturnList() {
                 setDateTo(e.target.value);
                 setCurrentPage(1);
               }}
-              className="text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500"
             />
           </div>
           {(statusFilter !== "all" || dateFrom || dateTo) && (
@@ -371,7 +371,7 @@ export default function ReturnList() {
                     }`}
                   >
                     <td className="px-4 py-3">
-                      <span className="text-sm font-semibold text-blue-600">
+                      <span className="text-sm font-semibold text-sky-600">
                         {req.id}
                       </span>
                     </td>
@@ -382,7 +382,7 @@ export default function ReturnList() {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-sky-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
                           {req.customer
                             .split(" ")
                             .map((n) => n[0])
@@ -428,7 +428,7 @@ export default function ReturnList() {
                             selectedId === req.id ? null : req.id
                           )
                         }
-                        className="inline-flex items-center gap-1.5 text-xs font-medium text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition-colors"
+                        className="inline-flex items-center gap-1.5 text-xs font-medium text-sky-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition-colors"
                       >
                         <svg
                           className="w-3.5 h-3.5"
@@ -481,7 +481,7 @@ export default function ReturnList() {
                   onClick={() => setCurrentPage(p)}
                   className={`w-8 h-8 text-sm rounded-lg transition-colors ${
                     currentPage === p
-                      ? "bg-blue-600 text-white"
+                      ? "bg-sky-500 text-white"
                       : "border border-gray-300 hover:bg-gray-50 text-gray-700"
                   }`}
                 >

@@ -1,9 +1,11 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { ArrowLeft, CheckCircle, XCircle, Wallet, CreditCard } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { MOCK_REFUND_DETAIL_BASE } from '@/mock/mock.orders'
+import { useTranslation } from 'react-i18next'
 
 export default function RefundDetail() {
+  const { t } = useTranslation()
   const { id } = useParams()
   const [action, setAction] = useState<'approve' | 'reject' | null>(null)
   const [refundMethod, setRefundMethod] = useState<'wallet' | 'original'>('original')
@@ -22,7 +24,7 @@ export default function RefundDetail() {
       <div className="flex items-center gap-3 mb-6">
         <Link to="/admin/orders/refunds" className="p-2 rounded-lg hover:bg-gray-100"><ArrowLeft size={18} /></Link>
         <div>
-          <h1 className="text-xl font-bold text-gray-900">Refund Request</h1>
+          <h1 className="text-xl font-bold text-gray-900">{t('common.refundDetail', 'Refund Request')}</h1>
           <p className="text-sm text-gray-500">{refund.orderNumber}</p>
         </div>
         <span className="ml-2 px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm font-medium">{refund.status}</span>
@@ -42,7 +44,7 @@ export default function RefundDetail() {
             <div className="space-y-3">
               <div className="flex justify-between text-sm"><span className="text-gray-600">Items subtotal</span><span>KWD {refund.itemsAmount.toFixed(3)}</span></div>
               <div className="flex justify-between text-sm"><span className="text-gray-600">Delivery fee</span><span>KWD {refund.deliveryFee.toFixed(3)}</span></div>
-              <div className="flex justify-between text-sm text-blue-600"><span>Wallet credit used</span><span>-KWD {refund.walletPortion.toFixed(3)}</span></div>
+              <div className="flex justify-between text-sm text-sky-600"><span>Wallet credit used</span><span>-KWD {refund.walletPortion.toFixed(3)}</span></div>
               <div className="flex justify-between font-semibold text-gray-900 border-t pt-3 mt-1"><span>Total Refund Amount</span><span>KWD {refund.originalAmount.toFixed(3)}</span></div>
             </div>
           </div>
@@ -64,21 +66,21 @@ export default function RefundDetail() {
                 <div>
                   <p className="text-sm font-medium text-gray-700 mb-2">Refund Method</p>
                   <div className="flex gap-3">
-                    <label className={`flex items-center gap-2 px-4 py-3 rounded-lg border-2 cursor-pointer ${refundMethod === 'original' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
+                    <label className={`flex items-center gap-2 px-4 py-3 rounded-lg border-2 cursor-pointer ${refundMethod === 'original' ? 'border-sky-500 bg-blue-50' : 'border-gray-200'}`}>
                       <input type="radio" value="original" checked={refundMethod === 'original'} onChange={() => setRefundMethod('original')} className="sr-only" />
-                      <CreditCard size={16} className="text-blue-600" />
+                      <CreditCard size={16} className="text-sky-600" />
                       <span className="text-sm font-medium">Original Payment</span>
                     </label>
-                    <label className={`flex items-center gap-2 px-4 py-3 rounded-lg border-2 cursor-pointer ${refundMethod === 'wallet' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
+                    <label className={`flex items-center gap-2 px-4 py-3 rounded-lg border-2 cursor-pointer ${refundMethod === 'wallet' ? 'border-sky-500 bg-blue-50' : 'border-gray-200'}`}>
                       <input type="radio" value="wallet" checked={refundMethod === 'wallet'} onChange={() => setRefundMethod('wallet')} className="sr-only" />
-                      <Wallet size={16} className="text-blue-600" />
+                      <Wallet size={16} className="text-sky-600" />
                       <span className="text-sm font-medium">Wallet Credit</span>
                     </label>
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Refund Amount (KWD) — leave empty for full amount</label>
-                  <input type="number" step="0.001" value={partialAmount} onChange={e => setPartialAmount(e.target.value)} placeholder={refund.originalAmount.toFixed(3)} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 max-w-xs" />
+                  <input type="number" step="0.001" value={partialAmount} onChange={e => setPartialAmount(e.target.value)} placeholder={refund.originalAmount.toFixed(3)} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 max-w-xs" />
                 </div>
                 <div className="flex gap-3">
                   <button onClick={() => setAction(null)} className="px-4 py-2 border border-gray-300 rounded-lg text-sm">Back</button>
@@ -89,7 +91,7 @@ export default function RefundDetail() {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Rejection Reason *</label>
-                  <textarea value={reason} onChange={e => setReason(e.target.value)} rows={3} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none" placeholder="Explain why the refund is rejected..." />
+                  <textarea value={reason} onChange={e => setReason(e.target.value)} rows={3} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 resize-none" placeholder="Explain why the refund is rejected..." />
                 </div>
                 <div className="flex gap-3">
                   <button onClick={() => setAction(null)} className="px-4 py-2 border border-gray-300 rounded-lg text-sm">Back</button>
@@ -114,7 +116,7 @@ export default function RefundDetail() {
           </div>
           <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4">
             <h4 className="font-semibold text-sm text-gray-700 mb-3">Order</h4>
-            <Link to={`/admin/orders/${refund.id}`} className="text-sm text-blue-600 font-medium hover:underline">{refund.orderNumber}</Link>
+            <Link to={`/admin/orders/${refund.id}`} className="text-sm text-sky-600 font-medium hover:underline">{refund.orderNumber}</Link>
           </div>
         </div>
       </div>

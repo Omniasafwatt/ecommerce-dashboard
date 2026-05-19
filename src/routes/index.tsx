@@ -93,7 +93,7 @@ function PageLoader() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="flex flex-col items-center gap-4">
-        <Loader2 className="w-10 h-10 text-indigo-500 animate-spin" />
+        <Loader2 className="w-10 h-10 text-sky-500 animate-spin" />
         <p className="text-sm text-gray-500 font-medium">Loading…</p>
       </div>
     </div>

@@ -1,6 +1,7 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Search, Download, Shield } from 'lucide-react'
 import { MOCK_AUDIT_LOGS as MOCK_LOGS } from '@/mock/mock.audit'
+import { useTranslation } from 'react-i18next'
 
 const SEVERITY_STYLES: Record<string, string> = {
   info: 'bg-blue-100 text-blue-700',
@@ -9,6 +10,7 @@ const SEVERITY_STYLES: Record<string, string> = {
 }
 
 export default function AuditLogs() {
+  const { t } = useTranslation()
   const [search, setSearch] = useState('')
   const [filterModule, setFilterModule] = useState('')
   const [filterSeverity, setFilterSeverity] = useState('')
@@ -25,7 +27,7 @@ export default function AuditLogs() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Audit Logs</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('nav.auditLogs', 'Audit Logs')}</h1>
           <p className="text-sm text-gray-500 mt-1">All admin actions are logged for compliance</p>
         </div>
         <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50">
@@ -37,7 +39,7 @@ export default function AuditLogs() {
         <div className="p-4 border-b border-gray-100 flex gap-3 flex-wrap">
           <div className="relative flex-1 min-w-48">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search logs..." className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search logs..." className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500" />
           </div>
           <select value={filterModule} onChange={e => setFilterModule(e.target.value)} className="px-3 py-2 text-sm border border-gray-300 rounded-lg">
             <option value="">All Modules</option>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Package, ChevronRight, Search } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { MOCK_DRIVER_DELIVERIES as MOCK } from '@/mock/mock.deliveries'
@@ -34,7 +34,7 @@ export default function DriverDeliveries() {
   return (
     <div className="max-w-md mx-auto px-4 py-5 pb-24">
       <div className="mb-5">
-        <h1 className="text-xl font-bold text-gray-900">All Deliveries</h1>
+        <h1 className="text-xl font-bold text-gray-900">All t('nav.deliveries', 'Deliveries')</h1>
         <p className="text-sm text-gray-500">{MOCK.length} total deliveries</p>
       </div>
 
@@ -42,7 +42,7 @@ export default function DriverDeliveries() {
         <div className="flex gap-2 w-max">
           {tabs.map(t => (
             <button key={t.id} onClick={() => setFilterStatus(t.id)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${filterStatus === t.id ? 'bg-blue-600 text-white' : 'bg-white text-gray-600 border border-gray-200'}`}>
+              className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${filterStatus === t.id ? 'bg-sky-500 text-white' : 'bg-white text-gray-600 border border-gray-200'}`}>
               {t.label}
             </button>
           ))}
@@ -51,7 +51,7 @@ export default function DriverDeliveries() {
 
       <div className="relative mb-4">
         <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search..." className="w-full pl-9 pr-3 py-2.5 text-sm border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search..." className="w-full pl-9 pr-3 py-2.5 text-sm border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500" />
       </div>
 
       <div className="space-y-3">
@@ -61,7 +61,7 @@ export default function DriverDeliveries() {
             <Link key={delivery.id} to={`/driver/deliveries/${delivery.id}`}>
               <div className="bg-white rounded-xl border border-gray-200 p-4 flex items-center gap-3 shadow-sm active:bg-gray-50">
                 <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0">
-                  <Package size={18} className="text-blue-600" />
+                  <Package size={18} className="text-sky-600" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,6 +17,7 @@ import {
   AlertTriangle,
 } from 'lucide-react'
 import type { Governorate } from '@/types/common'
+import { useTranslation } from 'react-i18next'
 
 // ─── Schema ───────────────────────────────────────────────────────────────────
 
@@ -58,6 +59,7 @@ const StatusBadge = ({ status }: { status: 'active' | 'inactive' }) => (
 // ─── Governorates Page ────────────────────────────────────────────────────────
 
 export default function Governorates() {
+  const { t } = useTranslation()
   const queryClient = useQueryClient()
 
   const [search, setSearch] = useState('')
@@ -154,16 +156,16 @@ export default function Governorates() {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <div className="p-2 bg-blue-50 rounded-lg">
-            <MapPin className="h-5 w-5 text-blue-600" />
+            <MapPin className="h-5 w-5 text-sky-600" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-gray-900">Governorates</h1>
+            <h1 className="text-xl font-bold text-gray-900">{t('nav.governorates', 'Governorates')}</h1>
             <p className="text-sm text-gray-500">Manage governorates and their areas</p>
           </div>
         </div>
         <button
           onClick={openCreate}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm"
+          className="flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm"
         >
           <Plus className="h-4 w-4" />
           Add Governorate
@@ -179,7 +181,7 @@ export default function Governorates() {
             placeholder="Search governorates..."
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(1) }}
-            className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
           />
         </div>
       </div>
@@ -234,7 +236,7 @@ export default function Governorates() {
                         <div className="flex items-center justify-end gap-1">
                           <button
                             onClick={() => openEdit(gov)}
-                            className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                            className="p-1.5 text-gray-400 hover:text-sky-600 hover:bg-blue-50 rounded-lg transition-colors"
                             title="Edit"
                           >
                             <Edit2 className="h-4 w-4" />
@@ -284,7 +286,7 @@ export default function Governorates() {
                       onClick={() => setPage(p)}
                       className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors ${
                         p === page
-                          ? 'bg-blue-600 text-white'
+                          ? 'bg-sky-500 text-white'
                           : 'text-gray-600 hover:bg-gray-100'
                       }`}
                     >
@@ -332,7 +334,7 @@ export default function Governorates() {
                 <input
                   {...register('nameEn')}
                   placeholder="e.g. Capital"
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                 />
                 {errors.nameEn && (
                   <p className="text-xs text-red-500 mt-1">{errors.nameEn.message}</p>
@@ -348,7 +350,7 @@ export default function Governorates() {
                   {...register('nameAr')}
                   placeholder="مثال: العاصمة"
                   dir="rtl"
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right"
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-right"
                 />
                 {errors.nameAr && (
                   <p className="text-xs text-red-500 mt-1">{errors.nameAr.message}</p>
@@ -364,8 +366,8 @@ export default function Governorates() {
                 <button
                   type="button"
                   onClick={() => setValue('status', statusValue === 'active' ? 'inactive' : 'active')}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-                    statusValue === 'active' ? 'bg-blue-600' : 'bg-gray-300'
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 ${
+                    statusValue === 'active' ? 'bg-sky-500' : 'bg-gray-300'
                   }`}
                 >
                   <span
@@ -388,7 +390,7 @@ export default function Governorates() {
                 <button
                   type="submit"
                   disabled={saveMutation.isPending}
-                  className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="flex-1 px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {saveMutation.isPending ? 'Saving...' : editTarget ? 'Update' : 'Create'}
                 </button>

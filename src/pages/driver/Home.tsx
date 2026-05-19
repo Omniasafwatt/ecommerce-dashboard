@@ -1,4 +1,4 @@
-import { MapPin, Package, ChevronRight, CheckCircle } from 'lucide-react'
+﻿import { MapPin, Package, ChevronRight, CheckCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { MOCK_DRIVER_HOME_DELIVERIES as MOCK_DELIVERIES } from '@/mock/mock.deliveries'
 
@@ -32,7 +32,7 @@ export default function DriverHome() {
           <p className="text-xs text-gray-500 mt-0.5">Delivered</p>
         </div>
         <div className="bg-white rounded-xl border border-gray-200 p-3 text-center">
-          <p className="text-2xl font-bold text-blue-600">{deliveries.filter(d => d.status === 'assigned').length}</p>
+          <p className="text-2xl font-bold text-sky-600">{deliveries.filter(d => d.status === 'assigned').length}</p>
           <p className="text-xs text-gray-500 mt-0.5">Pending</p>
         </div>
       </div>
@@ -42,7 +42,7 @@ export default function DriverHome() {
         <div className="mb-5">
           <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Active Delivery</p>
           <Link to={`/driver/deliveries/${active.id}`}>
-            <div className="bg-blue-600 rounded-2xl p-5 text-white shadow-lg">
+            <div className="bg-sky-500 rounded-2xl p-5 text-white shadow-lg">
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold mb-2 ${STATUS_CONFIG[active.status].bg} ${STATUS_CONFIG[active.status].color}`}>
@@ -79,7 +79,7 @@ export default function DriverHome() {
               <Link key={delivery.id} to={`/driver/deliveries/${delivery.id}`}>
                 <div className={`bg-white rounded-xl border p-4 flex items-center gap-4 ${isDone ? 'border-gray-100 opacity-70' : 'border-gray-200 shadow-sm'}`}>
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${isDone ? 'bg-green-100' : 'bg-blue-100'}`}>
-                    {isDone ? <CheckCircle size={20} className="text-green-600" /> : <Package size={20} className="text-blue-600" />}
+                    {isDone ? <CheckCircle size={20} className="text-green-600" /> : <Package size={20} className="text-sky-600" />}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-gray-900">{delivery.customer}</p>

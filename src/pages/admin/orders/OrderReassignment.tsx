@@ -1,7 +1,8 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { ArrowLeft, ArrowRightLeft, Store, Package, AlertTriangle, CheckCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { MOCK_REASSIGNMENT as MOCK } from '@/mock/mock.orders'
+import { useTranslation } from 'react-i18next'
 
 interface ReassignItem {
   id: number
@@ -20,6 +21,7 @@ interface ReassignItem {
 const REASONS = ['Out of stock', 'Store closed', 'Item damaged', 'Store capacity issue', 'Customer request', 'Other']
 
 export default function OrderReassignment() {
+  const { t } = useTranslation()
   const [items, setItems] = useState<ReassignItem[]>(MOCK)
   const [selectedStore, setSelectedStore] = useState<Record<number, string>>({})
 
@@ -37,7 +39,7 @@ export default function OrderReassignment() {
       <div className="flex items-center gap-3 mb-6">
         <Link to="/admin/orders" className="p-2 rounded-lg hover:bg-gray-100"><ArrowLeft size={18} /></Link>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Store Reassignment</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('nav.reassignment', 'Store Reassignment')}</h1>
           <p className="text-sm text-gray-500 mt-1">Reassign items to alternative stores</p>
         </div>
       </div>
@@ -52,7 +54,7 @@ export default function OrderReassignment() {
           <div key={item.id} className={`bg-white rounded-xl border shadow-sm ${item.confirmed ? 'border-green-200' : 'border-gray-200'}`}>
             <div className="p-4 border-b border-gray-100 flex items-center justify-between">
               <div>
-                <Link to={`/admin/orders/${item.id}`} className="text-sm font-bold text-blue-600">{item.orderNumber}</Link>
+                <Link to={`/admin/orders/${item.id}`} className="text-sm font-bold text-sky-600">{item.orderNumber}</Link>
                 <span className="text-sm text-gray-500 ml-2">· {item.customer}</span>
               </div>
               {item.confirmed && (
@@ -82,10 +84,10 @@ export default function OrderReassignment() {
                 <p className="text-xs font-semibold text-gray-500 uppercase mb-2">Available Stores</p>
                 <div className="space-y-2">
                   {item.availableStores.map(store => (
-                    <label key={store.name} className={`flex items-center justify-between p-2.5 rounded-lg border-2 cursor-pointer transition-colors ${selectedStore[item.id] === store.name ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                    <label key={store.name} className={`flex items-center justify-between p-2.5 rounded-lg border-2 cursor-pointer transition-colors ${selectedStore[item.id] === store.name ? 'border-sky-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
                       <div className="flex items-center gap-2">
                         <input type="radio" name={`store-${item.id}`} value={store.name} checked={selectedStore[item.id] === store.name} onChange={() => setSelectedStore(prev => ({ ...prev, [item.id]: store.name }))} className="sr-only" />
-                        <div className={`w-3 h-3 rounded-full ${selectedStore[item.id] === store.name ? 'bg-blue-600' : 'bg-gray-300'}`} />
+                        <div className={`w-3 h-3 rounded-full ${selectedStore[item.id] === store.name ? 'bg-sky-500' : 'bg-gray-300'}`} />
                         <span className="text-sm font-medium text-gray-800">{store.name}</span>
                       </div>
                       <div className="text-right text-xs">
@@ -103,19 +105,19 @@ export default function OrderReassignment() {
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs font-medium text-gray-700 mb-1">Reason *</label>
-                    <select value={item.reason} onChange={e => update(item.id, 'reason', e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <select value={item.reason} onChange={e => update(item.id, 'reason', e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
                       <option value="">Select reason</option>
                       {REASONS.map(r => <option key={r}>{r}</option>)}
                     </select>
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-gray-700 mb-1">Comment</label>
-                    <input value={item.comment} onChange={e => update(item.id, 'comment', e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Optional notes" />
+                    <input value={item.comment} onChange={e => update(item.id, 'comment', e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500" placeholder="Optional notes" />
                   </div>
                 </div>
                 <div className="flex justify-end">
                   <button onClick={() => confirm(item.id)} disabled={!selectedStore[item.id] || !item.reason}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
+                    className="flex items-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-lg text-sm font-medium hover:bg-sky-600 disabled:opacity-50 disabled:cursor-not-allowed">
                     <ArrowRightLeft size={14} />Confirm Reassignment
                   </button>
                 </div>

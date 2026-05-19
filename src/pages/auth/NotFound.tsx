@@ -20,13 +20,13 @@ export default function NotFound() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-indigo-50 px-4"
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-sky-50 px-4"
       dir={isRtl ? 'rtl' : 'ltr'}
     >
       <div className="w-full max-w-lg text-center">
         {/* Decorative icon */}
-        <div className="flex items-center justify-center mx-auto mb-4 w-24 h-24 rounded-full bg-indigo-100 shadow-inner">
-          <SearchX className="w-12 h-12 text-indigo-500" />
+        <div className="flex items-center justify-center mx-auto mb-4 w-24 h-24 rounded-full bg-sky-100 shadow-inner">
+          <SearchX className="w-12 h-12 text-sky-500" />
         </div>
 
         {/* Big 404 */}
@@ -88,7 +88,7 @@ export default function NotFound() {
           <button
             type="button"
             onClick={() => navigate('/login')}
-            className="text-indigo-500 hover:underline font-medium"
+            className="text-sky-500 hover:underline font-medium"
           >
             {isRtl ? 'تسجيل الدخول مجدداً' : 'Try logging in again'}
           </button>

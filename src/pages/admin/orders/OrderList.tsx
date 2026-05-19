@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+﻿import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { MOCK_ORDER_LIST as MOCK_ORDERS, ORDER_LIST_STORES as STORES, ORDER_LIST_GOVERNORATES as GOVERNORATES } from '@/mock/mock.orders'
+import { useTranslation } from 'react-i18next'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -25,7 +26,7 @@ type PaymentStatus = "pending" | "paid" | "failed" | "refunded";
 const ORDER_STATUS_CONFIG: Record<OrderStatus, { label: string; className: string }> = {
   pending:          { label: "Pending",          className: "bg-amber-100 text-amber-800 border border-amber-200" },
   confirmed:        { label: "Confirmed",         className: "bg-blue-100 text-blue-800 border border-blue-200" },
-  preparing:        { label: "Preparing",         className: "bg-indigo-100 text-indigo-800 border border-indigo-200" },
+  preparing:        { label: "Preparing",         className: "bg-sky-100 text-sky-800 border border-sky-200" },
   ready:            { label: "Ready",             className: "bg-cyan-100 text-cyan-800 border border-cyan-200" },
   out_for_delivery: { label: "Out for Delivery",  className: "bg-purple-100 text-purple-800 border border-purple-200" },
   delivered:        { label: "Delivered",         className: "bg-green-100 text-green-800 border border-green-200" },
@@ -63,6 +64,7 @@ function PaymentStatusBadge({ status }: { status: PaymentStatus }) {
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function OrderList() {
+  const { t } = useTranslation()
   const navigate = useNavigate();
 
   // Filters
@@ -171,7 +173,7 @@ export default function OrderList() {
         {/* Header */}
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold text-gray-900">Orders Management</h1>
+            <h1 className="text-2xl font-bold text-gray-900">{t('nav.orders', 'Orders Management')}</h1>
             {wsConnected && newOrdersCount > 0 && (
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500 text-white text-xs font-semibold animate-pulse">
                 <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
@@ -222,7 +224,7 @@ export default function OrderList() {
                   placeholder="Search order #"
                   value={orderSearch}
                   onChange={e => { setOrderSearch(e.target.value); setCurrentPage(1); }}
-                  className="pl-8 pr-3 py-2 border border-gray-200 rounded-lg text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="pl-8 pr-3 py-2 border border-gray-200 rounded-lg text-sm w-full focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                 />
               </div>
             </div>
@@ -237,7 +239,7 @@ export default function OrderList() {
                   placeholder="Name or phone"
                   value={customerSearch}
                   onChange={e => { setCustomerSearch(e.target.value); setCurrentPage(1); }}
-                  className="pl-8 pr-3 py-2 border border-gray-200 rounded-lg text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="pl-8 pr-3 py-2 border border-gray-200 rounded-lg text-sm w-full focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                 />
               </div>
             </div>
@@ -248,7 +250,7 @@ export default function OrderList() {
               <select
                 value={selectedStore}
                 onChange={e => { setSelectedStore(e.target.value); setCurrentPage(1); }}
-                className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
               >
                 {STORES.map(s => <option key={s}>{s}</option>)}
               </select>
@@ -260,7 +262,7 @@ export default function OrderList() {
               <select
                 value={selectedGovernorate}
                 onChange={e => { setSelectedGovernorate(e.target.value); setCurrentPage(1); }}
-                className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
               >
                 {GOVERNORATES.map(g => <option key={g}>{g}</option>)}
               </select>
@@ -272,7 +274,7 @@ export default function OrderList() {
               <select
                 value={selectedPaymentMethod}
                 onChange={e => { setSelectedPaymentMethod(e.target.value); setCurrentPage(1); }}
-                className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
               >
                 <option value="all">All</option>
                 <option value="tap">Tap</option>
@@ -286,7 +288,7 @@ export default function OrderList() {
               <select
                 value={selectedPaymentStatus}
                 onChange={e => { setSelectedPaymentStatus(e.target.value); setCurrentPage(1); }}
-                className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
               >
                 <option value="all">All</option>
                 <option value="pending">Pending</option>
@@ -323,7 +325,7 @@ export default function OrderList() {
                 type="date"
                 value={dateFrom}
                 onChange={e => { setDateFrom(e.target.value); setCurrentPage(1); }}
-                className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
               />
             </div>
 
@@ -334,7 +336,7 @@ export default function OrderList() {
                 type="date"
                 value={dateTo}
                 onChange={e => { setDateTo(e.target.value); setCurrentPage(1); }}
-                className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
               />
             </div>
 
@@ -355,7 +357,7 @@ export default function OrderList() {
         <div className="flex items-center justify-between text-sm text-gray-500">
           <span>Showing {paginated.length} of {filtered.length} orders</span>
           {selectedRows.size > 0 && (
-            <span className="font-medium text-blue-600">{selectedRows.size} selected</span>
+            <span className="font-medium text-sky-600">{selectedRows.size} selected</span>
           )}
         </div>
 
@@ -370,7 +372,7 @@ export default function OrderList() {
                       type="checkbox"
                       checked={selectedRows.size === paginated.length && paginated.length > 0}
                       onChange={toggleSelectAll}
-                      className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      className="w-4 h-4 rounded border-gray-300 text-sky-600 focus:ring-sky-500"
                     />
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Order #</th>
@@ -406,13 +408,13 @@ export default function OrderList() {
                           type="checkbox"
                           checked={selectedRows.has(order.id)}
                           onChange={() => toggleRow(order.id)}
-                          className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          className="w-4 h-4 rounded border-gray-300 text-sky-600 focus:ring-sky-500"
                         />
                       </td>
                       <td className="px-4 py-3">
                         <span
                           onClick={e => { e.stopPropagation(); navigate(`/admin/orders/${order.id}`); }}
-                          className="text-blue-600 hover:text-blue-800 font-semibold text-sm hover:underline cursor-pointer"
+                          className="text-sky-600 hover:text-blue-800 font-semibold text-sm hover:underline cursor-pointer"
                         >
                           {order.orderNumber}
                         </span>
@@ -433,7 +435,7 @@ export default function OrderList() {
                       <td className="px-4 py-3 text-center" onClick={e => e.stopPropagation()}>
                         <button
                           onClick={() => navigate(`/admin/orders/${order.id}`)}
-                          className="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-medium hover:bg-blue-700 transition-colors"
+                          className="inline-flex items-center gap-1 px-3 py-1.5 bg-sky-500 text-white rounded-lg text-xs font-medium hover:bg-sky-600 transition-colors"
                         >
                           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                           View
@@ -462,7 +464,7 @@ export default function OrderList() {
                   <button
                     key={p}
                     onClick={() => setCurrentPage(p)}
-                    className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors ${p === currentPage ? "bg-blue-600 text-white" : "border border-gray-200 text-gray-600 hover:bg-gray-50"}`}
+                    className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors ${p === currentPage ? "bg-sky-500 text-white" : "border border-gray-200 text-gray-600 hover:bg-gray-50"}`}
                   >
                     {p}
                   </button>

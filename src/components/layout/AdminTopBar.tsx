@@ -33,50 +33,49 @@ interface BreadcrumbSegment {
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-const ROUTE_LABELS: Record<string, string> = {
-  admin: 'Admin',
-  dashboard: 'Dashboard',
-  locations: 'Locations',
-  governorates: 'Governorates',
-  areas: 'Areas',
-  stores: 'Stores',
-  users: 'Users',
-  roles: 'Roles',
-  catalog: 'Catalog',
-  products: 'Products',
-  categories: 'Categories',
-  brands: 'Brands',
-  bundles: 'Bundles',
-  inventory: 'Inventory',
-  availability: 'Availability',
-  pricing: 'Pricing',
-  promotions: 'Promotions',
-  'delivery-rules': 'Delivery Rules',
-  'payment-methods': 'Payment Methods',
-  orders: 'Orders',
-  reassignment: 'Reassignment',
-  cancellations: 'Cancellations',
-  refunds: 'Refunds',
-  wallet: 'Wallet',
-  returns: 'Returns',
-  reviews: 'Reviews',
-  chat: 'Chat',
-  notifications: 'Notifications',
-  reports: 'Reports',
-  'audit-logs': 'Audit Logs',
+const ROUTE_LABEL_KEYS: Record<string, string> = {
+  admin: '',
+  dashboard: 'nav.dashboard',
+  locations: 'nav.locations',
+  governorates: 'nav.governorates',
+  areas: 'nav.areas',
+  stores: 'nav.stores',
+  users: 'nav.users',
+  roles: 'nav.roles',
+  catalog: 'nav.catalog',
+  products: 'nav.products',
+  categories: 'nav.categories',
+  brands: 'nav.brands',
+  bundles: 'nav.bundles',
+  inventory: 'nav.inventory',
+  availability: 'nav.availability',
+  pricing: 'nav.pricing',
+  promotions: 'nav.promoCodes',
+  'delivery-rules': 'nav.deliveryRules',
+  'payment-methods': 'nav.paymentMethods',
+  orders: 'nav.orders',
+  reassignment: 'nav.reassignment',
+  cancellations: 'nav.cancellations',
+  refunds: 'nav.refunds',
+  wallet: 'nav.wallet',
+  returns: 'nav.returns',
+  reviews: 'nav.reviews',
+  chat: 'nav.chat',
+  notifications: 'nav.notifications',
+  reports: 'nav.reports',
+  'audit-logs': 'nav.auditLogs',
 }
 
-function buildBreadcrumbs(pathname: string): BreadcrumbSegment[] {
+function buildBreadcrumbs(pathname: string, t: (key: string) => string): BreadcrumbSegment[] {
   const segments = pathname.split('/').filter(Boolean)
   const crumbs: BreadcrumbSegment[] = []
   let cumulativePath = ''
 
   for (const segment of segments) {
     cumulativePath += `/${segment}`
-    crumbs.push({
-      label: ROUTE_LABELS[segment] ?? segment.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
-      path: cumulativePath,
-    })
+    const key = ROUTE_LABEL_KEYS[segment]
+    const label = key ? t(key) : segment.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+    crumbs.push({ label, path: cumulativePath })
   }
 
   return crumbs
@@ -85,6 +84,7 @@ function buildBreadcrumbs(pathname: string): BreadcrumbSegment[] {
 // ─── Notification dropdown ────────────────────────────────────────────────────
 
 function NotificationDropdown({ onClose }: { onClose: () => void }) {
+  const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const notifications = useAppSelector(selectNotifications)
   const recent = notifications.slice(0, 8)
@@ -92,24 +92,24 @@ function NotificationDropdown({ onClose }: { onClose: () => void }) {
   return (
     <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-xl border border-slate-200 z-50 overflow-hidden">
       <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
-        <span className="font-semibold text-slate-800 text-sm">Notifications</span>
+        <span className="font-semibold text-slate-800 text-sm">{t('common.notifications')}</span>
         <button
           onClick={() => dispatch(markAllAsRead())}
-          className="text-xs text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
+          className="text-xs text-sky-600 hover:text-sky-800 font-medium transition-colors"
         >
-          Mark all read
+          {t('common.markAllRead')}
         </button>
       </div>
 
       <div className="max-h-72 overflow-y-auto divide-y divide-slate-50">
         {recent.length === 0 ? (
-          <p className="text-center text-slate-400 text-sm py-8">No notifications</p>
+          <p className="text-center text-slate-400 text-sm py-8">{t('common.noNotifications')}</p>
         ) : (
           recent.map((notif) => (
             <div
               key={notif.id}
               className={`px-4 py-3 hover:bg-slate-50 transition-colors cursor-pointer ${
-                !notif.isRead ? 'bg-indigo-50/40' : ''
+                !notif.isRead ? 'bg-sky-50/40' : ''
               }`}
               onClick={onClose}
             >
@@ -130,9 +130,9 @@ function NotificationDropdown({ onClose }: { onClose: () => void }) {
           <Link
             to="/admin/notifications"
             onClick={onClose}
-            className="text-xs text-indigo-600 hover:text-indigo-800 font-medium"
+            className="text-xs text-sky-600 hover:text-sky-800 font-medium"
           >
-            View all notifications
+            {t('common.viewAll')}
           </Link>
         </div>
       )}
@@ -143,6 +143,7 @@ function NotificationDropdown({ onClose }: { onClose: () => void }) {
 // ─── User dropdown ────────────────────────────────────────────────────────────
 
 function UserDropdown({ onClose }: { onClose: () => void }) {
+  const { t } = useTranslation()
   const { user, logout } = useAuth()
   const navigate = useNavigate()
 
@@ -168,7 +169,7 @@ function UserDropdown({ onClose }: { onClose: () => void }) {
           className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
         >
           <User size={15} className="text-slate-400" />
-          Profile
+          {t('nav.profile')}
         </Link>
         <Link
           to="/admin/settings"
@@ -176,7 +177,7 @@ function UserDropdown({ onClose }: { onClose: () => void }) {
           className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
         >
           <Settings size={15} className="text-slate-400" />
-          Settings
+          {t('nav.settings')}
         </Link>
       </div>
 
@@ -186,7 +187,7 @@ function UserDropdown({ onClose }: { onClose: () => void }) {
           className="flex items-center gap-2.5 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
         >
           <LogOut size={15} />
-          Logout
+          {t('auth.logout')}
         </button>
       </div>
     </div>
@@ -215,7 +216,7 @@ export default function AdminTopBar({ onMenuClick }: AdminTopBarProps) {
   const notifRef = useRef<HTMLDivElement>(null)
   const userRef = useRef<HTMLDivElement>(null)
 
-  const breadcrumbs = buildBreadcrumbs(location.pathname)
+  const breadcrumbs = buildBreadcrumbs(location.pathname, t)
 
   // Close dropdowns on outside click
   useEffect(() => {
@@ -304,8 +305,8 @@ export default function AdminTopBar({ onMenuClick }: AdminTopBarProps) {
           placeholder={t('common.search', 'Search...')}
           className={`
             h-9 w-52 xl:w-64 bg-slate-100 border border-transparent rounded-lg text-sm text-slate-800
-            placeholder-slate-400 focus:outline-none focus:border-indigo-400 focus:bg-white
-            focus:ring-2 focus:ring-indigo-100 transition-all
+            placeholder-slate-400 focus:outline-none focus:border-sky-400 focus:bg-white
+            focus:ring-2 focus:ring-sky-100 transition-all
             ${isRTL ? 'pr-9 pl-3' : 'pl-9 pr-3'}
           `}
         />
@@ -366,7 +367,7 @@ export default function AdminTopBar({ onMenuClick }: AdminTopBarProps) {
             className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-100 transition-colors"
             aria-label="User menu"
           >
-            <div className="w-7 h-7 rounded-full bg-indigo-500 flex items-center justify-center text-xs font-bold text-white uppercase flex-shrink-0">
+            <div className="w-7 h-7 rounded-full bg-sky-500 flex items-center justify-center text-xs font-bold text-white uppercase flex-shrink-0">
               {user?.avatar ? (
                 <img
                   src={user.avatar}

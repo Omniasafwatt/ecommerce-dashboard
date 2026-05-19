@@ -1,7 +1,8 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Search, Eye, CheckCircle, XCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { MOCK_REFUNDS as MOCK } from '@/mock/mock.orders'
+import { useTranslation } from 'react-i18next'
 
 interface RefundRequest {
   id: number
@@ -21,6 +22,7 @@ const STATUS_COLORS = {
 }
 
 export default function Refunds() {
+  const { t } = useTranslation()
   const [items, setItems] = useState<RefundRequest[]>(MOCK)
   const [filterStatus, setFilterStatus] = useState('')
   const [search, setSearch] = useState('')
@@ -40,7 +42,7 @@ export default function Refunds() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Refund Requests</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('nav.refunds', 'Refund Requests')}</h1>
           <p className="text-sm text-gray-500 mt-1">{items.filter(i => i.status === 'pending').length} pending reviews</p>
         </div>
       </div>
@@ -49,7 +51,7 @@ export default function Refunds() {
         <div className="p-4 border-b border-gray-100 flex gap-3 flex-wrap">
           <div className="relative flex-1 min-w-48">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search refunds..." className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search refunds..." className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500" />
           </div>
           <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="px-3 py-2 text-sm border border-gray-300 rounded-lg">
             <option value="">All Status</option>
@@ -71,7 +73,7 @@ export default function Refunds() {
             <tbody className="divide-y divide-gray-100">
               {filtered.map(item => (
                 <tr key={item.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3"><Link to={`/admin/orders/${item.id}`} className="text-sm font-bold text-blue-600">{item.orderNumber}</Link></td>
+                  <td className="px-4 py-3"><Link to={`/admin/orders/${item.id}`} className="text-sm font-bold text-sky-600">{item.orderNumber}</Link></td>
                   <td className="px-4 py-3 text-sm text-gray-700">{item.customer}</td>
                   <td className="px-4 py-3 text-sm font-semibold text-gray-900">KWD {item.amount.toFixed(3)}</td>
                   <td className="px-4 py-3 text-sm text-gray-600">{item.reason}</td>
@@ -81,7 +83,7 @@ export default function Refunds() {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-1.5">
-                      <Link to={`/admin/orders/refunds/${item.id}`} className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Eye size={14} /></Link>
+                      <Link to={`/admin/orders/refunds/${item.id}`} className="p-1.5 text-gray-400 hover:text-sky-600 hover:bg-blue-50 rounded-lg"><Eye size={14} /></Link>
                       {item.status === 'pending' && (
                         <>
                           <button onClick={() => setConfirmAction({ id: item.id, action: 'approve' })} className="p-1.5 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-lg"><CheckCircle size={14} /></button>

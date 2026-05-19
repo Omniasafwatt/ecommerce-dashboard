@@ -1,6 +1,7 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Users as UsersIcon, Plus, Pencil, Search, Shield, Store, Truck } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import type { UserRole } from '@/types/auth'
 import { MOCK_USERS as MOCK } from '@/mock/mock.users'
 
@@ -38,6 +39,7 @@ const TABS = [
 const ADMIN_ROLES: UserRole[] = ['super_admin', 'operations_admin', 'catalog_manager', 'finance', 'support', 'marketing']
 
 export default function Users() {
+  const { t } = useTranslation()
   const [items, setItems] = useState<UserItem[]>(MOCK)
   const [search, setSearch] = useState('')
   const [tab, setTab] = useState('all')
@@ -56,10 +58,10 @@ export default function Users() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">User Management</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('users.userManagement', 'User Management')}</h1>
           <p className="text-sm text-gray-500 mt-1">{items.length} total users</p>
         </div>
-        <Link to="/admin/users/new" className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
+        <Link to="/admin/users/new" className="flex items-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-lg text-sm font-medium hover:bg-sky-600">
           <Plus size={16} /><span>Add User</span>
         </Link>
       </div>
@@ -68,7 +70,7 @@ export default function Users() {
       <div className="flex gap-1 bg-gray-100 p-1 rounded-xl mb-5 w-fit">
         {TABS.map(t => (
           <button key={t.id} onClick={() => setTab(t.id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${tab === t.id ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-600 hover:text-gray-900'}`}>
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${tab === t.id ? 'bg-white text-sky-600 shadow-sm' : 'text-gray-600 hover:text-gray-900'}`}>
             <t.icon size={15} />{t.label}
           </button>
         ))}
@@ -78,7 +80,7 @@ export default function Users() {
         <div className="p-4 border-b border-gray-100">
           <div className="relative max-w-xs">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search users..." className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search users..." className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500" />
           </div>
         </div>
 
@@ -119,7 +121,7 @@ export default function Users() {
                   <td className="px-4 py-3 text-xs text-gray-500">{item.lastLogin}</td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      <Link to={`/admin/users/${item.id}`} className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"><Pencil size={14} /></Link>
+                      <Link to={`/admin/users/${item.id}`} className="p-1.5 text-gray-400 hover:text-sky-600 hover:bg-blue-50 rounded-lg transition-colors"><Pencil size={14} /></Link>
                       <button onClick={() => toggleStatus(item.id)} className={`px-2.5 py-1 rounded text-xs font-medium ${item.status === 'active' ? 'text-amber-700 bg-amber-50 hover:bg-amber-100' : 'text-green-700 bg-green-50 hover:bg-green-100'}`}>
                         {item.status === 'active' ? 'Disable' : 'Enable'}
                       </button>

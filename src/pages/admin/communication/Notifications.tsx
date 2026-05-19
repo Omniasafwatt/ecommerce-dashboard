@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Bell, Plus, Send, Trash2, Users, User, Store, Truck } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { MOCK_NOTIFICATIONS as MOCK_TEMPLATES } from '@/mock/mock.notifications'
 
 type TargetAudience = 'all' | 'customers' | 'store_managers' | 'drivers'
@@ -37,6 +38,7 @@ const TYPE_STYLES: Record<NotifType, string> = {
 }
 
 export default function Notifications() {
+  const { t } = useTranslation()
   const [templates, setTemplates] = useState<NotifTemplate[]>(MOCK_TEMPLATES)
   const [showComposer, setShowComposer] = useState(false)
   const [title, setTitle] = useState('')
@@ -71,17 +73,17 @@ export default function Notifications() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Notifications</h1>
-          <p className="text-sm text-gray-500 mt-1">Manage push notifications and announcements</p>
+          <h1 className="text-2xl font-bold text-gray-900">{t('nav.notifications', 'Notifications')}</h1>
+          <p className="text-sm text-gray-500 mt-1">{t('notifications.manageDesc', 'Manage push notifications and announcements')}</p>
         </div>
-        <button onClick={() => setShowComposer(!showComposer)} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
-          <Plus size={16} />Send Notification
+        <button onClick={() => setShowComposer(!showComposer)} className="flex items-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-lg text-sm font-medium hover:bg-sky-600">
+          <Plus size={16} />{t('notifications.sendNotification', 'Send Notification')}
         </button>
       </div>
 
       {showComposer && (
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 mb-5">
-          <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2"><Bell size={16} />Compose Notification</h3>
+          <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2"><Bell size={16} />{t('notifications.composeTitle', 'Compose Notification')}</h3>
           {sent && (
             <div className="p-3 bg-green-50 border border-green-200 rounded-lg text-sm text-green-800 mb-4">
               Notification sent successfully!
@@ -90,7 +92,7 @@ export default function Notifications() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
-              <input value={title} onChange={e => setTitle(e.target.value)} placeholder="Notification title..." className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              <input value={title} onChange={e => setTitle(e.target.value)} placeholder="Notification title..." className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
@@ -103,13 +105,13 @@ export default function Notifications() {
           </div>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-1">Message Body *</label>
-            <textarea value={body} onChange={e => setBody(e.target.value)} rows={3} placeholder="Message body... Use {{order_id}}, {{area}} for variables." className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none" />
+            <textarea value={body} onChange={e => setBody(e.target.value)} rows={3} placeholder="Message body... Use {{order_id}}, {{area}} for variables." className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 resize-none" />
           </div>
           <div className="mb-5">
             <label className="block text-sm font-medium text-gray-700 mb-2">Target Audience</label>
             <div className="flex gap-3 flex-wrap">
               {(Object.entries(AUDIENCE_LABELS) as [TargetAudience, string][]).map(([val, label]) => (
-                <label key={val} className={`flex items-center gap-2 px-4 py-2 rounded-lg border-2 cursor-pointer text-sm font-medium transition-all ${audience === val ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-gray-200 text-gray-600 hover:border-gray-300'}`}>
+                <label key={val} className={`flex items-center gap-2 px-4 py-2 rounded-lg border-2 cursor-pointer text-sm font-medium transition-all ${audience === val ? 'border-sky-500 bg-blue-50 text-blue-700' : 'border-gray-200 text-gray-600 hover:border-gray-300'}`}>
                   <input type="radio" value={val} checked={audience === val} onChange={() => setAudience(val)} className="sr-only" />
                   {AUDIENCE_ICONS[val]}{label}
                 </label>
@@ -117,9 +119,9 @@ export default function Notifications() {
             </div>
           </div>
           <div className="flex gap-3">
-            <button onClick={() => setShowComposer(false)} className="px-4 py-2 border border-gray-300 rounded-lg text-sm">Cancel</button>
-            <button onClick={handleSend} disabled={!title || !body || sending} className="flex items-center gap-2 px-5 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50">
-              <Send size={14} />{sending ? 'Sending...' : 'Send Now'}
+            <button onClick={() => setShowComposer(false)} className="px-4 py-2 border border-gray-300 rounded-lg text-sm">{t('common.cancel', 'Cancel')}</button>
+            <button onClick={handleSend} disabled={!title || !body || sending} className="flex items-center gap-2 px-5 py-2 bg-sky-500 text-white rounded-lg text-sm font-medium hover:bg-sky-600 disabled:opacity-50">
+              <Send size={14} />{sending ? t('notifications.sending', 'Sending...') : t('notifications.sendNow', 'Send Now')}
             </button>
           </div>
         </div>
@@ -127,7 +129,7 @@ export default function Notifications() {
 
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
         <div className="p-4 border-b border-gray-100">
-          <h3 className="font-semibold text-gray-900">Notification History</h3>
+          <h3 className="font-semibold text-gray-900">{t('notifications.history', 'Notification History')}</h3>
           <p className="text-xs text-gray-500 mt-0.5">{templates.length} notifications sent</p>
         </div>
         <div className="overflow-x-auto">

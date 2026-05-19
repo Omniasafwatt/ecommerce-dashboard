@@ -97,15 +97,15 @@ export default function StoreOrders() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">{t('orders.title')}</h1>
+        <h1 className="text-xl md:text-2xl font-bold text-gray-900">{t('orders.title')}</h1>
         <p className="text-sm text-gray-500 mt-1">{user?.storeName || t('store.storeName')}</p>
       </div>
 
-      <div className="overflow-x-auto -mx-1 px-1 mb-4">
-        <div className="flex gap-1 bg-gray-100 p-1 rounded-xl w-max">
+      <div className="mb-4 overflow-x-auto">
+        <div className="flex gap-1 bg-gray-100 p-1 rounded-xl w-full min-w-max">
           {tabs.map(t => (
             <button key={t.id} onClick={() => setActiveTab(t.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${activeTab === t.id ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-600'}`}>
+              className={`px-2 sm:px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${activeTab === t.id ? 'bg-white text-sky-600 shadow-sm' : 'text-gray-600'}`}>
               {t.label}
             </button>
           ))}
@@ -113,12 +113,12 @@ export default function StoreOrders() {
       </div>
 
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
-        <div className="p-4 border-b border-gray-100 flex gap-3 flex-wrap">
-          <div className="relative flex-1 min-w-48">
+        <div className="p-3 sm:p-4 border-b border-gray-100 flex flex-col gap-3 sm:flex-row sm:gap-3">
+          <div className="relative flex-1 min-w-0">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input value={search} onChange={e => setSearch(e.target.value)} placeholder={t('orders.searchOrders')} className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input value={search} onChange={e => setSearch(e.target.value)} placeholder={t('orders.searchOrders')} className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500" />
           </div>
-          <select value={filterDelivery} onChange={e => setFilterDelivery(e.target.value)} className="px-3 py-2 text-sm border border-gray-300 rounded-lg">
+          <select value={filterDelivery} onChange={e => setFilterDelivery(e.target.value)} className="px-3 py-2 text-sm border border-gray-300 rounded-lg w-full sm:w-auto">
             <option value="">{t('common.actions')}</option>
             <option value="instant">{t('orders.deliveryTypes.instant')}</option>
             <option value="scheduled">{t('orders.deliveryTypes.scheduled')}</option>
@@ -127,38 +127,67 @@ export default function StoreOrders() {
 
         <div className="divide-y divide-gray-100">
           {filtered.map(order => (
-            <div key={order.id} className="p-4 hover:bg-gray-50">
-              <div className="flex items-start justify-between gap-3">
+            <div key={order.id} className="p-3 sm:p-4 hover:bg-gray-50 transition-colors">
+              <div className="flex items-start gap-3">
+
+                {/* ── Left: order info ── */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1 flex-wrap">
+                  <div className="flex flex-wrap items-center gap-1.5 mb-1">
                     <p className="text-sm font-semibold text-gray-900">{order.orderNumber}</p>
                     <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${STATUS_STYLES[order.status]}`}>{getStatusLabel(order.status)}</span>
-                    <span className={`px-2 py-0.5 rounded-full text-xs ${order.deliveryType === 'instant' ? 'bg-blue-50 text-blue-600' : 'bg-indigo-50 text-indigo-600'}`}>{getDeliveryTypeLabel(order.deliveryType)}</span>
+                    <span className={`px-2 py-0.5 rounded-full text-xs ${order.deliveryType === 'instant' ? 'bg-blue-50 text-sky-600' : 'bg-sky-50 text-sky-600'}`}>{getDeliveryTypeLabel(order.deliveryType)}</span>
                     <span className={`px-2 py-0.5 rounded-full text-xs ${order.paymentMethod === 'cash' ? 'bg-green-50 text-green-700' : order.paymentMethod === 'wallet' ? 'bg-purple-50 text-purple-700' : 'bg-gray-100 text-gray-600'}`}>{getPaymentMethodLabel(order.paymentMethod)}</span>
                   </div>
-                  <p className="text-sm text-gray-700">{order.customer} · {order.phone}</p>
+                  <p className="text-sm text-gray-700 truncate">{order.customer} · {order.phone}</p>
                   <p className="text-xs text-gray-400 mt-0.5">{order.items} {t('store.dashboard.items')} · {order.date} {order.time}</p>
+
+                  {/* Mobile-only: price + action buttons below info */}
+                  <div className="sm:hidden mt-3 pt-3 border-t border-gray-100">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-base font-bold text-gray-900">{t('common.currency')} {order.total.toFixed(3)}</p>
+                      <Link to={`/store/orders/${order.id}`} className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-500 hover:text-sky-600 border border-gray-200 rounded-lg hover:border-sky-300 transition-colors font-medium">
+                        <Eye size={14} /> View
+                      </Link>
+                    </div>
+                    <div className="flex gap-2">
+                      {order.status === 'new' && (
+                        <>
+                          <button onClick={() => handleQuickStatus(order.id, 'accepted')} className="flex-1 py-2.5 bg-green-600 text-white rounded-lg text-sm font-semibold hover:bg-green-700 transition-colors">{t('store.dashboard.accept')}</button>
+                          <button onClick={() => handleQuickStatus(order.id, 'rejected')} className="flex-1 py-2.5 bg-red-600 text-white rounded-lg text-sm font-semibold hover:bg-red-700 transition-colors">{t('store.dashboard.reject')}</button>
+                        </>
+                      )}
+                      {order.status === 'accepted' && (
+                        <button onClick={() => handleQuickStatus(order.id, 'preparing')} className="flex-1 py-2.5 bg-orange-500 text-white rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors">{t('store.dashboard.statuses.preparing')}</button>
+                      )}
+                      {order.status === 'preparing' && (
+                        <button onClick={() => handleQuickStatus(order.id, 'out_for_delivery')} className="flex-1 py-2.5 bg-purple-600 text-white rounded-lg text-sm font-semibold hover:bg-purple-700 transition-colors">{t('store.dashboard.statuses.out_for_delivery')}</button>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div className="text-right flex-shrink-0">
-                  <p className="text-base font-bold text-gray-900 mb-2">{t('common.currency')} {order.total.toFixed(3)}</p>
-                  <div className="flex gap-1.5 justify-end">
+
+                {/* ── Right: price + buttons + eye — desktop only ── */}
+                <div className="hidden sm:flex flex-col items-end gap-2 flex-shrink-0">
+                  <p className="text-base font-bold text-gray-900">{t('common.currency')} {order.total.toFixed(3)}</p>
+                  <div className="flex items-center gap-1.5">
                     {order.status === 'new' && (
                       <>
-                        <button onClick={() => handleQuickStatus(order.id, 'accepted')} className="px-2.5 py-1 bg-green-600 text-white rounded text-xs font-medium hover:bg-green-700">{t('store.dashboard.accept')}</button>
-                        <button onClick={() => handleQuickStatus(order.id, 'rejected')} className="px-2.5 py-1 bg-red-600 text-white rounded text-xs font-medium hover:bg-red-700">{t('store.dashboard.reject')}</button>
+                        <button onClick={() => handleQuickStatus(order.id, 'accepted')} className="px-3 py-1.5 bg-green-600 text-white rounded-lg text-xs font-semibold hover:bg-green-700 transition-colors">{t('store.dashboard.accept')}</button>
+                        <button onClick={() => handleQuickStatus(order.id, 'rejected')} className="px-3 py-1.5 bg-red-600 text-white rounded-lg text-xs font-semibold hover:bg-red-700 transition-colors">{t('store.dashboard.reject')}</button>
                       </>
                     )}
                     {order.status === 'accepted' && (
-                      <button onClick={() => handleQuickStatus(order.id, 'preparing')} className="px-2.5 py-1 bg-orange-500 text-white rounded text-xs font-medium hover:bg-orange-600">{t('store.dashboard.statuses.preparing')}</button>
+                      <button onClick={() => handleQuickStatus(order.id, 'preparing')} className="px-3 py-1.5 bg-orange-500 text-white rounded-lg text-xs font-semibold hover:bg-orange-600 transition-colors">{t('store.dashboard.statuses.preparing')}</button>
                     )}
                     {order.status === 'preparing' && (
-                      <button onClick={() => handleQuickStatus(order.id, 'out_for_delivery')} className="px-2.5 py-1 bg-purple-600 text-white rounded text-xs font-medium hover:bg-purple-700">{t('store.dashboard.statuses.out_for_delivery')}</button>
+                      <button onClick={() => handleQuickStatus(order.id, 'out_for_delivery')} className="px-3 py-1.5 bg-purple-600 text-white rounded-lg text-xs font-semibold hover:bg-purple-700 transition-colors">{t('store.dashboard.statuses.out_for_delivery')}</button>
                     )}
-                    <Link to={`/store/orders/${order.id}`} className="p-1.5 text-gray-400 hover:text-blue-600 border border-gray-200 rounded hover:border-blue-300">
+                    <Link to={`/store/orders/${order.id}`} className="p-1.5 text-gray-400 hover:text-sky-600 border border-gray-200 rounded-lg hover:border-sky-300 transition-colors">
                       <Eye size={14} />
                     </Link>
                   </div>
                 </div>
+
               </div>
             </div>
           ))}

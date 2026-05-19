@@ -14,7 +14,7 @@ interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const colorStyles: Record<ProgressColor, string> = {
-  blue: "bg-blue-600",
+  blue: "bg-sky-500",
   green: "bg-green-500",
   yellow: "bg-yellow-500",
   red: "bg-red-500",

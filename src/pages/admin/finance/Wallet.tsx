@@ -1,5 +1,6 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Wallet as WalletIcon, Search, Plus, Minus, ArrowUpRight, ArrowDownLeft, Download } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface Transaction {
   id: number
@@ -33,11 +34,12 @@ const MOCK_CUSTOMER: Customer = {
 const TYPE_STYLES: Record<string, { color: string; icon: React.ReactNode; label: string }> = {
   credit: { color: 'text-green-600', icon: <ArrowUpRight size={14} />, label: 'Credit' },
   debit: { color: 'text-red-600', icon: <ArrowDownLeft size={14} />, label: 'Debit' },
-  refund: { color: 'text-blue-600', icon: <ArrowUpRight size={14} />, label: 'Refund' },
+  refund: { color: 'text-sky-600', icon: <ArrowUpRight size={14} />, label: 'Refund' },
   usage: { color: 'text-gray-600', icon: <ArrowDownLeft size={14} />, label: 'Usage' },
 }
 
 export default function WalletManagement() {
+  const { t } = useTranslation()
   const [searchQuery, setSearchQuery] = useState('')
   const [customer, setCustomer] = useState<Customer | null>(null)
   const [searched, setSearched] = useState(false)
@@ -71,7 +73,7 @@ export default function WalletManagement() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Wallet Management</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('nav.wallet', 'Wallet Management')}</h1>
           <p className="text-sm text-gray-500 mt-1">View and manage customer wallets</p>
         </div>
       </div>
@@ -82,9 +84,9 @@ export default function WalletManagement() {
         <div className="flex gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input value={searchQuery} onChange={e => setSearchQuery(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSearch()} placeholder="Search by name, email, or phone..." className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input value={searchQuery} onChange={e => setSearchQuery(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSearch()} placeholder="Search by name, email, or phone..." className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500" />
           </div>
-          <button onClick={handleSearch} className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">Search</button>
+          <button onClick={handleSearch} className="px-4 py-2 bg-sky-500 text-white rounded-lg text-sm font-medium hover:bg-sky-600">Search</button>
         </div>
       </div>
 
@@ -146,7 +148,7 @@ export default function WalletManagement() {
                           {tx.type === 'debit' || tx.type === 'usage' ? '-' : '+'}KWD {tx.amount.toFixed(3)}
                         </td>
                         <td className="px-4 py-3 text-sm font-medium text-gray-900">KWD {tx.balanceAfter.toFixed(3)}</td>
-                        <td className="px-4 py-3 text-sm text-blue-600">{tx.reference || '—'}</td>
+                        <td className="px-4 py-3 text-sm text-sky-600">{tx.reference || '—'}</td>
                         <td className="px-4 py-3 text-sm text-gray-600">{tx.note}</td>
                       </tr>
                     )
@@ -175,11 +177,11 @@ export default function WalletManagement() {
             <div className="p-5 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Amount (KWD) *</label>
-                <input type="number" step="0.001" value={amount} onChange={e => setAmount(e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="0.000" />
+                <input type="number" step="0.001" value={amount} onChange={e => setAmount(e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500" placeholder="0.000" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Reason *</label>
-                <textarea value={note} onChange={e => setNote(e.target.value)} rows={3} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none" placeholder="Reason for this transaction..." />
+                <textarea value={note} onChange={e => setNote(e.target.value)} rows={3} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 resize-none" placeholder="Reason for this transaction..." />
               </div>
             </div>
             <div className="flex gap-3 p-5 border-t">

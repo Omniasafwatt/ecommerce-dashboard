@@ -8,7 +8,6 @@ import {
   MessageSquare,
   LogOut,
   Truck,
-  Store,
   Globe,
 } from 'lucide-react'
 import { useAppSelector, useAppDispatch } from '@/store'
@@ -105,14 +104,14 @@ export default function StoreSidebar({ mobileOpen, onMobileClose }: StoreSidebar
       {/* Store name header */}
       <div className="px-4 py-5 border-b border-slate-100">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-teal-100 rounded-xl flex items-center justify-center flex-shrink-0">
-            <Store size={20} className="text-teal-600" />
+          <div className="w-10 h-10 bg-sky-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
+            <span className="text-white font-black text-lg leading-none">M</span>
           </div>
           <div className="min-w-0">
             <p className="text-sm font-bold text-slate-800 truncate leading-tight">
               {user?.storeName ?? 'Mobile2000'}
             </p>
-            <p className="text-xs text-slate-500 truncate">Store Manager</p>
+            <p className="text-xs text-slate-500 truncate">{t('store.storeManager')}</p>
           </div>
         </div>
       </div>
@@ -130,11 +129,11 @@ export default function StoreSidebar({ mobileOpen, onMobileClose }: StoreSidebar
           <div className="flex items-center gap-2 mb-1">
             <Truck size={14} className="text-slate-500" />
             <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">
-              Active Drivers
+              {t('store.activeDrivers')}
             </p>
           </div>
           <p className="text-xl font-bold text-slate-800">3</p>
-          <p className="text-xs text-slate-500">on duty right now</p>
+          <p className="text-xs text-slate-500">{t('store.onDutyNow')}</p>
         </div>
 
         {/* Language toggle */}

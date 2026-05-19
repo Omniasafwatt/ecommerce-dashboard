@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { ArrowLeft, CheckCircle, XCircle, Package, User, Image as ImageIcon } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { MOCK_RETURN_DETAIL as request } from '@/mock/mock.returns'
@@ -84,7 +84,7 @@ export default function ReturnDetail() {
                 )}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">{action === 'reject' ? 'Rejection Reason *' : 'Notes'}</label>
-                  <textarea value={notes} onChange={e => setNotes(e.target.value)} rows={3} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none" />
+                  <textarea value={notes} onChange={e => setNotes(e.target.value)} rows={3} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 resize-none" />
                 </div>
                 <div className="flex gap-2">
                   <button onClick={() => setAction(null)} className="px-4 py-2 border border-gray-300 rounded-lg text-sm">Back</button>
@@ -107,7 +107,7 @@ export default function ReturnDetail() {
           </div>
           <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4">
             <h4 className="font-semibold text-sm text-gray-700 mb-3">Order Reference</h4>
-            <Link to={`/admin/orders/1`} className="text-sm text-blue-600 font-medium hover:underline">{request.orderNumber}</Link>
+            <Link to={`/admin/orders/1`} className="text-sm text-sky-600 font-medium hover:underline">{request.orderNumber}</Link>
           </div>
           <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4">
             <h4 className="font-semibold text-sm text-gray-700 mb-3">Status History</h4>

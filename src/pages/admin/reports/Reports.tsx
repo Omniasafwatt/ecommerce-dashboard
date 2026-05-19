@@ -1,7 +1,8 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
 import { Download, TrendingUp, ShoppingBag, Users, DollarSign } from 'lucide-react'
 import { MOCK_SALES_DATA as SALES_DATA, MOCK_CATEGORY_DATA as CATEGORY_DATA, MOCK_STORE_PERF_DATA as STORE_DATA, MOCK_DELIVERY_SLA_DATA as DELIVERY_DATA } from '@/mock/mock.reports'
+import { useTranslation } from 'react-i18next'
 
 
 const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6']
@@ -16,6 +17,7 @@ const REPORT_TABS: { id: ReportView; label: string; icon: React.ReactNode }[] = 
 ]
 
 export default function Reports() {
+  const { t } = useTranslation()
   const [view, setView] = useState<ReportView>('sales')
   const [period, setPeriod] = useState('month')
 
@@ -30,7 +32,7 @@ export default function Reports() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Reports & Analytics</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('nav.reports', 'Reports & Analytics')}</h1>
           <p className="text-sm text-gray-500 mt-1">Business performance insights</p>
         </div>
         <div className="flex items-center gap-3">
@@ -61,7 +63,7 @@ export default function Reports() {
       <div className="flex gap-1 bg-gray-100 p-1 rounded-xl mb-5 w-fit overflow-x-auto">
         {REPORT_TABS.map(t => (
           <button key={t.id} onClick={() => setView(t.id)}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${view === t.id ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-600'}`}>
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${view === t.id ? 'bg-white text-sky-600 shadow-sm' : 'text-gray-600'}`}>
             {t.icon}{t.label}
           </button>
         ))}

@@ -78,7 +78,7 @@ export default function Inventory() {
         <div className="p-4 border-b border-gray-100 flex gap-3 flex-wrap items-center">
           <div className="relative flex-1 min-w-48">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input value={search} onChange={e => setSearch(e.target.value)} placeholder={t('operations.inventory.searchPlaceholder')} className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input value={search} onChange={e => setSearch(e.target.value)} placeholder={t('operations.inventory.searchPlaceholder')} className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500" />
           </div>
           <select value={filterStore} onChange={e => setFilterStore(e.target.value)} className="px-3 py-2 text-sm border border-gray-300 rounded-lg">
             <option value="">{t('operations.inventory.allStores')}</option>

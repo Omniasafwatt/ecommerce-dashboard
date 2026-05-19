@@ -1,11 +1,14 @@
 const ar = {
   nav: {
     dashboard: 'لوحة التحكم',
+    home: 'الرئيسية',
     orders: 'الطلبات',
     allOrders: 'جميع الطلبات',
     orderDetail: 'تفاصيل الطلب',
     refunds: 'المبالغ المستردة',
     returns: 'المرتجعات',
+    reassignment: 'إعادة التعيين',
+    cancellations: 'الإلغاءات',
     products: 'المنتجات',
     catalog: 'كتالوج المنتجات',
     categories: 'الفئات',
@@ -15,10 +18,13 @@ const ar = {
     stores: 'المتاجر',
     storeList: 'قائمة المتاجر',
     drivers: 'السائقون',
+    deliveries: 'التوصيلات',
     availability: 'التوفر',
     pricing: 'الأسعار',
     delivery: 'التوصيل',
+    deliveryRules: 'قواعد التوصيل',
     payments: 'المدفوعات',
+    paymentMethods: 'طرق الدفع',
     promoCodes: 'أكواد الخصم',
     users: 'المستخدمون',
     adminUsers: 'المشرفون',
@@ -33,11 +39,25 @@ const ar = {
     notifications: 'الإشعارات',
     auditLogs: 'سجل الأنشطة',
     regions: 'المناطق',
+    locations: 'المواقع',
     governorates: 'المحافظات',
     areas: 'المناطق الفرعية',
     chat: 'المحادثات',
     wallet: 'المحفظة',
     reviews: 'التقييمات',
+    profile: 'الملف الشخصي',
+  },
+
+  sidebar: {
+    overview: 'نظرة عامة',
+    locations: 'المواقع',
+    usersRoles: 'المستخدمون والأدوار',
+    catalog: 'الكتالوج',
+    operations: 'العمليات',
+    orders: 'الطلبات',
+    finance: 'المالية',
+    support: 'الدعم',
+    analytics: 'التحليلات',
   },
 
   auth: {
@@ -253,6 +273,9 @@ const ar = {
 
   store: {
     title: 'المتاجر',
+    storeManager: 'مدير المتجر',
+    activeDrivers: 'السائقون النشطون',
+    onDutyNow: 'في الخدمة الآن',
     addStore: 'إضافة متجر',
     editStore: 'تعديل المتجر',
     deleteStore: 'حذف المتجر',
@@ -444,6 +467,7 @@ const ar = {
   },
 
   driver: {
+    appTitle: 'سائق Mobile2000',
     homeTitle: 'التوصيلات النشطة',
     deliveriesTitle: 'توصيلاتي',
     profileTitle: 'الملف الشخصي',

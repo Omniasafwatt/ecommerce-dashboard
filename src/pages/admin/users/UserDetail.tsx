@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft, Pencil, Mail, Phone, Shield, Store, Calendar, Activity } from 'lucide-react'
 
@@ -29,7 +29,7 @@ export default function UserDetail() {
           <h1 className="text-2xl font-bold text-gray-900">{user.name}</h1>
           <p className="text-sm text-gray-500">User Profile</p>
         </div>
-        <button onClick={() => setEditing(true)} className="ml-auto flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
+        <button onClick={() => setEditing(true)} className="ml-auto flex items-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-lg text-sm font-medium hover:bg-sky-600">
           <Pencil size={14} /> Edit User
         </button>
       </div>

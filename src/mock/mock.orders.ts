@@ -52,7 +52,7 @@ export const MOCK_CANCELLATIONS = [
 ]
 
 // Refund requests (Refunds.tsx)
-export const MOCK_REFUNDS = [
+export const MOCK_REFUNDS: any[] = [
   { id: 1, orderNumber: 'ORD-2025-0005', customer: 'Ali Al-Kandari', amount: 18.750, reason: 'Order cancelled', status: 'pending' as const, date: '2025-05-09 11:30' },
   { id: 2, orderNumber: 'ORD-2025-0010', customer: 'Dana Al-Rashid', amount: 5.500, reason: 'Wrong item delivered', status: 'pending' as const, date: '2025-05-10 08:00' },
   { id: 3, orderNumber: 'ORD-2025-0002', customer: 'Fatima Hassan', amount: 3.250, reason: 'Item damaged', status: 'approved' as const, date: '2025-05-09 14:00' },

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { ArrowLeft, Package, Clock, User, MapPin, CreditCard, Truck, AlertTriangle, CheckCircle, XCircle, MessageSquare } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { MOCK_ADMIN_ORDER_DETAIL as mockOrder } from '@/mock/mock.orders'
@@ -7,7 +7,7 @@ type OrderStatus = 'pending' | 'accepted' | 'preparing' | 'out_for_delivery' | '
 
 const STATUS_COLORS: Record<OrderStatus, string> = {
   pending: 'bg-yellow-100 text-yellow-800', accepted: 'bg-blue-100 text-blue-800',
-  preparing: 'bg-indigo-100 text-indigo-800', out_for_delivery: 'bg-purple-100 text-purple-800',
+  preparing: 'bg-sky-100 text-sky-800', out_for_delivery: 'bg-purple-100 text-purple-800',
   delivered: 'bg-green-100 text-green-800', cancelled: 'bg-gray-100 text-gray-600',
   rejected: 'bg-red-100 text-red-800',
 }
@@ -21,13 +21,13 @@ function ConfirmModal({ open, title, desc, onConfirm, onClose, danger }: Confirm
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm mx-4 p-6 text-center">
         <div className={`w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 ${danger ? 'bg-red-100' : 'bg-blue-100'}`}>
-          <AlertTriangle size={20} className={danger ? 'text-red-600' : 'text-blue-600'} />
+          <AlertTriangle size={20} className={danger ? 'text-red-600' : 'text-sky-600'} />
         </div>
         <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>
         <p className="text-sm text-gray-500 mb-5">{desc}</p>
         <div className="flex gap-3">
           <button onClick={onClose} className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium">Cancel</button>
-          <button onClick={() => { onConfirm(); onClose() }} className={`flex-1 px-4 py-2 text-white rounded-lg text-sm font-medium ${danger ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700'}`}>Confirm</button>
+          <button onClick={() => { onConfirm(); onClose() }} className={`flex-1 px-4 py-2 text-white rounded-lg text-sm font-medium ${danger ? 'bg-red-600 hover:bg-red-700' : 'bg-sky-500 hover:bg-sky-600'}`}>Confirm</button>
         </div>
       </div>
     </div>
@@ -100,7 +100,7 @@ export default function OrderDetail() {
               {order.statusHistory.map((h, i) => (
                 <div key={i} className="flex gap-3 pb-4 last:pb-0">
                   <div className="flex flex-col items-center">
-                    <div className={`w-3 h-3 rounded-full mt-0.5 flex-shrink-0 ${i === order.statusHistory.length - 1 ? 'bg-blue-600' : 'bg-gray-300'}`} />
+                    <div className={`w-3 h-3 rounded-full mt-0.5 flex-shrink-0 ${i === order.statusHistory.length - 1 ? 'bg-sky-500' : 'bg-gray-300'}`} />
                     {i < order.statusHistory.length - 1 && <div className="w-0.5 flex-1 bg-gray-200 mt-1" />}
                   </div>
                   <div className="pb-0">
@@ -164,7 +164,7 @@ export default function OrderDetail() {
                 <div className="flex justify-between text-gray-600"><span>Subtotal</span><span>KWD {order.subtotal.toFixed(3)}</span></div>
                 <div className="flex justify-between text-gray-600"><span>Delivery</span><span>KWD {order.deliveryFee.toFixed(3)}</span></div>
                 {order.discount > 0 && <div className="flex justify-between text-green-600"><span>Discount</span><span>-KWD {order.discount.toFixed(3)}</span></div>}
-                {order.walletUsed > 0 && <div className="flex justify-between text-blue-600"><span>Wallet</span><span>-KWD {order.walletUsed.toFixed(3)}</span></div>}
+                {order.walletUsed > 0 && <div className="flex justify-between text-sky-600"><span>Wallet</span><span>-KWD {order.walletUsed.toFixed(3)}</span></div>}
                 <div className="flex justify-between font-bold text-gray-900 border-t pt-1 mt-1"><span>Total</span><span>KWD {order.total.toFixed(3)}</span></div>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { ArrowLeft, MapPin, Phone, Package, User, CheckCircle, XCircle, Truck } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { MOCK_STORE_ORDER_DETAIL as MOCK_ORDER } from '@/mock/mock.store.orders'
@@ -45,13 +45,15 @@ export default function StoreOrderDetail() {
 
   return (
     <div>
-      <div className="flex items-center gap-3 mb-6">
-        <Link to="/store/orders" className="p-2 rounded-lg hover:bg-gray-100"><ArrowLeft size={18} /></Link>
-        <div>
-          <h1 className="text-xl font-bold text-gray-900">{order.orderNumber}</h1>
+      <div className="flex items-start gap-2 mb-6">
+        <Link to="/store/orders" className="p-2 rounded-lg hover:bg-gray-100 flex-shrink-0 mt-0.5"><ArrowLeft size={18} /></Link>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap mb-0.5">
+            <h1 className="text-xl font-bold text-gray-900">{order.orderNumber}</h1>
+            <span className={`px-3 py-1 rounded-full text-sm font-medium flex-shrink-0 ${STATUS_COLORS[order.status]}`}>{STATUS_LABELS[order.status]}</span>
+          </div>
           <p className="text-sm text-gray-500">{order.deliveryType} · {order.paymentMethod}</p>
         </div>
-        <span className={`ml-2 px-3 py-1 rounded-full text-sm font-medium ${STATUS_COLORS[order.status]}`}>{STATUS_LABELS[order.status]}</span>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
@@ -87,7 +89,7 @@ export default function StoreOrderDetail() {
               <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2"><Truck size={16} />Assign Driver</h3>
               <div className="space-y-2">
                 {order.drivers.map(driver => (
-                  <label key={driver.id} className={`flex items-center justify-between p-3 rounded-lg border-2 cursor-pointer ${selectedDriver === String(driver.id) ? 'border-blue-500 bg-blue-50' : 'border-gray-200'} ${!driver.available ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                  <label key={driver.id} className={`flex items-center justify-between p-3 rounded-lg border-2 cursor-pointer ${selectedDriver === String(driver.id) ? 'border-sky-500 bg-blue-50' : 'border-gray-200'} ${!driver.available ? 'opacity-50 cursor-not-allowed' : ''}`}>
                     <div className="flex items-center gap-3">
                       <input type="radio" value={String(driver.id)} checked={selectedDriver === String(driver.id)} onChange={() => driver.available && setSelectedDriver(String(driver.id))} disabled={!driver.available} className="sr-only" />
                       <div>
@@ -125,7 +127,7 @@ export default function StoreOrderDetail() {
           <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4">
             <h4 className="font-semibold text-sm text-gray-700 mb-3 flex items-center gap-2"><User size={14} />Customer</h4>
             <p className="text-sm font-medium text-gray-900">{order.customer.name}</p>
-            <a href={`tel:${order.customer.phone}`} className="flex items-center gap-1.5 text-sm text-blue-600 mt-1 hover:underline">
+            <a href={`tel:${order.customer.phone}`} className="flex items-center gap-1.5 text-sm text-sky-600 mt-1 hover:underline">
               <Phone size={13} />{order.customer.phone}
             </a>
           </div>
@@ -134,7 +136,7 @@ export default function StoreOrderDetail() {
             <p className="text-sm text-gray-800">{order.address.line1}</p>
             <p className="text-sm text-gray-500">{order.address.area}, {order.address.governorate}</p>
             {order.notes && <p className="text-xs text-gray-400 mt-2 italic">Note: {order.notes}</p>}
-            <a href={`https://maps.google.com/?q=${order.coordinates.lat},${order.coordinates.lng}`} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1.5 text-xs text-blue-600 hover:underline">
+            <a href={`https://maps.google.com/?q=${order.coordinates.lat},${order.coordinates.lng}`} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1.5 text-xs text-sky-600 hover:underline">
               <MapPin size={12} />Open in Maps
             </a>
           </div>

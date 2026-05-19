@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { ArrowLeft, MapPin, Phone, Package, Navigation, CheckCircle, Truck, AlertCircle } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { MOCK_DELIVERY_DETAIL as MOCK } from '@/mock/mock.deliveries'
@@ -76,10 +76,10 @@ export default function DriverDeliveryDetail() {
               const active = i === currentStep && !isDone
               return (
                 <div key={step.status} className="flex-1 flex flex-col items-center gap-1">
-                  <div className={`w-9 h-9 rounded-full flex items-center justify-center border-2 ${done ? 'bg-green-500 border-green-500 text-white' : active ? 'bg-blue-600 border-blue-600 text-white' : 'bg-gray-100 border-gray-200 text-gray-400'}`}>
+                  <div className={`w-9 h-9 rounded-full flex items-center justify-center border-2 ${done ? 'bg-green-500 border-green-500 text-white' : active ? 'bg-sky-500 border-blue-600 text-white' : 'bg-gray-100 border-gray-200 text-gray-400'}`}>
                     {step.icon}
                   </div>
-                  <p className={`text-xs text-center ${active ? 'font-semibold text-blue-600' : done ? 'text-green-600' : 'text-gray-400'}`}>{step.label}</p>
+                  <p className={`text-xs text-center ${active ? 'font-semibold text-sky-600' : done ? 'text-green-600' : 'text-gray-400'}`}>{step.label}</p>
                   {i < STATUS_STEPS.length - 1 && (
                     <div className={`absolute top-4 left-1/2 w-full h-0.5 ${done ? 'bg-green-400' : 'bg-gray-200'}`} style={{ display: 'none' }} />
                   )}
@@ -111,7 +111,7 @@ export default function DriverDeliveryDetail() {
           </div>
           {delivery.notes && <p className="text-xs text-gray-500 italic mb-3">Note: {delivery.notes}</p>}
           <div className="grid grid-cols-2 gap-2">
-            <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 bg-blue-600 text-white rounded-xl text-sm font-medium">
+            <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 bg-sky-500 text-white rounded-xl text-sm font-medium">
               <Navigation size={15} />Google Maps
             </a>
             <a href={appleMapsUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 bg-gray-900 text-white rounded-xl text-sm font-medium">
@@ -141,7 +141,7 @@ export default function DriverDeliveryDetail() {
           <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Pickup Store</p>
           <p className="text-sm font-medium text-gray-900">{delivery.store.name}</p>
           <p className="text-sm text-gray-500 mb-2">{delivery.store.address}</p>
-          <a href={`tel:${delivery.store.phone}`} className="flex items-center gap-1.5 text-sm text-blue-600">
+          <a href={`tel:${delivery.store.phone}`} className="flex items-center gap-1.5 text-sm text-sky-600">
             <Phone size={13} />{delivery.store.phone}
           </a>
         </div>
@@ -155,7 +155,7 @@ export default function DriverDeliveryDetail() {
                 <p className="text-xs text-gray-500">{trackingActive ? 'Live location sharing active' : 'Location sharing off'}</p>
               </div>
               <button onClick={() => setTrackingActive(!trackingActive)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium ${trackingActive ? 'bg-red-100 text-red-700' : 'bg-blue-600 text-white'}`}>
+                className={`px-4 py-2 rounded-lg text-sm font-medium ${trackingActive ? 'bg-red-100 text-red-700' : 'bg-sky-500 text-white'}`}>
                 {trackingActive ? 'Stop' : 'Start Tracking'}
               </button>
             </div>

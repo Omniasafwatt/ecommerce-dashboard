@@ -1,5 +1,6 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { MapPin, Plus, Pencil, Trash2, X, Search } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface Area {
   id: number
@@ -22,6 +23,7 @@ const MOCK: Area[] = [
 interface FormData { nameEn: string; nameAr: string; governorate: string; status: 'active' | 'inactive' }
 
 export default function Areas() {
+  const { t } = useTranslation()
   const [items, setItems] = useState<Area[]>(MOCK)
   const [search, setSearch] = useState('')
   const [filterGov, setFilterGov] = useState('')
@@ -70,10 +72,10 @@ export default function Areas() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Areas</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('nav.areas', 'Areas')}</h1>
           <p className="text-sm text-gray-500 mt-1">Manage delivery areas</p>
         </div>
-        <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
+        <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-lg text-sm font-medium hover:bg-sky-600 transition-colors">
           <Plus size={16} /><span>Add Area</span>
         </button>
       </div>
@@ -82,9 +84,9 @@ export default function Areas() {
         <div className="p-4 border-b border-gray-100 flex gap-3 flex-wrap">
           <div className="relative flex-1 min-w-48">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search areas..." className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search areas..." className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500" />
           </div>
-          <select value={filterGov} onChange={e => setFilterGov(e.target.value)} className="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <select value={filterGov} onChange={e => setFilterGov(e.target.value)} className="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500">
             <option value="">All Governorates</option>
             {GOVERNORATES.map(g => <option key={g} value={g}>{g}</option>)}
           </select>
@@ -112,7 +114,7 @@ export default function Areas() {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      <button onClick={() => openEdit(item)} className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"><Pencil size={14} /></button>
+                      <button onClick={() => openEdit(item)} className="p-1.5 text-gray-400 hover:text-sky-600 hover:bg-blue-50 rounded-lg transition-colors"><Pencil size={14} /></button>
                       <button onClick={() => toggleStatus(item.id)} className="p-1.5 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors">
                         <MapPin size={14} />
                       </button>
@@ -140,28 +142,28 @@ export default function Areas() {
             <div className="p-5 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Name (English) *</label>
-                <input value={form.nameEn} onChange={e => setForm(f => ({ ...f, nameEn: e.target.value }))} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Area name in English" />
+                <input value={form.nameEn} onChange={e => setForm(f => ({ ...f, nameEn: e.target.value }))} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500" placeholder="Area name in English" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Name (Arabic) *</label>
-                <input value={form.nameAr} onChange={e => setForm(f => ({ ...f, nameAr: e.target.value }))} dir="rtl" className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="اسم المنطقة بالعربية" />
+                <input value={form.nameAr} onChange={e => setForm(f => ({ ...f, nameAr: e.target.value }))} dir="rtl" className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500" placeholder="اسم المنطقة بالعربية" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Governorate</label>
-                <select value={form.governorate} onChange={e => setForm(f => ({ ...f, governorate: e.target.value }))} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <select value={form.governorate} onChange={e => setForm(f => ({ ...f, governorate: e.target.value }))} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
                   {GOVERNORATES.map(g => <option key={g} value={g}>{g}</option>)}
                 </select>
               </div>
               <div className="flex items-center justify-between">
                 <label className="text-sm font-medium text-gray-700">Active</label>
-                <button onClick={() => setForm(f => ({ ...f, status: f.status === 'active' ? 'inactive' : 'active' }))} className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${form.status === 'active' ? 'bg-blue-600' : 'bg-gray-200'}`}>
+                <button onClick={() => setForm(f => ({ ...f, status: f.status === 'active' ? 'inactive' : 'active' }))} className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${form.status === 'active' ? 'bg-sky-500' : 'bg-gray-200'}`}>
                   <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${form.status === 'active' ? 'translate-x-6' : 'translate-x-1'}`} />
                 </button>
               </div>
             </div>
             <div className="flex gap-3 p-5 border-t">
               <button onClick={() => setModalOpen(false)} className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50">Cancel</button>
-              <button onClick={handleSave} className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">Save</button>
+              <button onClick={handleSave} className="flex-1 px-4 py-2 bg-sky-500 text-white rounded-lg text-sm font-medium hover:bg-sky-600">Save</button>
             </div>
           </div>
         </div>

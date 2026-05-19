@@ -1,4 +1,4 @@
-export const MOCK_USERS = [
+export const MOCK_USERS: any[] = [
   { id: 1, name: 'Admin User', email: 'admin@store.com', phone: '+965 1234 5678', role: 'super_admin' as const, status: 'active' as const, lastLogin: '2025-05-10 09:00' },
   { id: 2, name: 'Ahmed Manager', email: 'ahmed@store.com', phone: '+965 2345 6789', role: 'store_manager' as const, store: 'Mobile2000 - Salmiya', status: 'active' as const, lastLogin: '2025-05-10 08:30' },
   { id: 3, name: 'Sara Support', email: 'sara@store.com', phone: '+965 3456 7890', role: 'support' as const, status: 'active' as const, lastLogin: '2025-05-09 17:00' },

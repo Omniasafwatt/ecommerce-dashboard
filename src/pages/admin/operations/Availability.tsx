@@ -1,6 +1,7 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Plus, Pencil, Trash2, X, Search } from 'lucide-react'
 import { MOCK_AVAILABILITY_RULES as MOCK } from '@/mock/mock.operations'
+import { useTranslation } from 'react-i18next'
 
 type AvailType = 'normal' | 'preorder' | 'delayed' | 'blocked'
 
@@ -32,6 +33,7 @@ const TYPE_COLORS: Record<AvailType, string> = {
 interface FormData { product: string; variant: string; store: string; type: AvailType; delayHours: string; status: 'active' | 'inactive' }
 
 export default function Availability() {
+  const { t } = useTranslation()
   const [items, setItems] = useState<Rule[]>(MOCK)
   const [search, setSearch] = useState('')
   const [filterType, setFilterType] = useState('')
@@ -74,10 +76,10 @@ export default function Availability() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Availability Control</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('nav.availability', 'Availability Control')}</h1>
           <p className="text-sm text-gray-500 mt-1">Set product availability rules per store</p>
         </div>
-        <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
+        <button onClick={openCreate} className="flex items-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-lg text-sm font-medium hover:bg-sky-600">
           <Plus size={16} />Add Rule
         </button>
       </div>
@@ -86,7 +88,7 @@ export default function Availability() {
         <div className="p-4 border-b border-gray-100 flex gap-3 flex-wrap">
           <div className="relative flex-1 min-w-48">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search products..." className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search products..." className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500" />
           </div>
           <select value={filterType} onChange={e => setFilterType(e.target.value)} className="px-3 py-2 text-sm border border-gray-300 rounded-lg">
             <option value="">All Types</option>
@@ -119,7 +121,7 @@ export default function Availability() {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      <button onClick={() => openEdit(item)} className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Pencil size={14} /></button>
+                      <button onClick={() => openEdit(item)} className="p-1.5 text-gray-400 hover:text-sky-600 hover:bg-blue-50 rounded-lg"><Pencil size={14} /></button>
                       <button onClick={() => setItems(prev => prev.filter(i => i.id !== item.id))} className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg"><Trash2 size={14} /></button>
                     </div>
                   </td>
@@ -141,15 +143,15 @@ export default function Availability() {
             <div className="p-5 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Product *</label>
-                <input value={form.product} onChange={e => setForm(f => ({ ...f, product: e.target.value }))} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Product name" />
+                <input value={form.product} onChange={e => setForm(f => ({ ...f, product: e.target.value }))} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500" placeholder="Product name" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Variant (optional)</label>
-                <input value={form.variant} onChange={e => setForm(f => ({ ...f, variant: e.target.value }))} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Variant name" />
+                <input value={form.variant} onChange={e => setForm(f => ({ ...f, variant: e.target.value }))} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500" placeholder="Variant name" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Store *</label>
-                <select value={form.store} onChange={e => setForm(f => ({ ...f, store: e.target.value }))} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <select value={form.store} onChange={e => setForm(f => ({ ...f, store: e.target.value }))} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
                   <option value="">Select store</option>
                   {['All Stores', 'Mobile2000 - Salmiya', 'Mobile2000 - Sharq', 'Mobile2000 - Fahaheel'].map(s => <option key={s}>{s}</option>)}
                 </select>
@@ -158,9 +160,9 @@ export default function Availability() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">Availability Type</label>
                 <div className="grid grid-cols-2 gap-2">
                   {(Object.entries(TYPE_LABELS) as [AvailType, string][]).map(([type, label]) => (
-                    <label key={type} className={`flex items-center gap-2 p-3 rounded-lg border-2 cursor-pointer transition-colors ${form.type === type ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                    <label key={type} className={`flex items-center gap-2 p-3 rounded-lg border-2 cursor-pointer transition-colors ${form.type === type ? 'border-sky-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}>
                       <input type="radio" name="type" value={type} checked={form.type === type} onChange={() => setForm(f => ({ ...f, type }))} className="sr-only" />
-                      <div className={`w-3 h-3 rounded-full flex-shrink-0 ${form.type === type ? 'bg-blue-600' : 'bg-gray-300'}`} />
+                      <div className={`w-3 h-3 rounded-full flex-shrink-0 ${form.type === type ? 'bg-sky-500' : 'bg-gray-300'}`} />
                       <span className="text-sm font-medium">{label}</span>
                     </label>
                   ))}
@@ -169,13 +171,13 @@ export default function Availability() {
               {form.type === 'delayed' && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Delay Hours</label>
-                  <input type="number" min="1" max="24" value={form.delayHours} onChange={e => setForm(f => ({ ...f, delayHours: e.target.value }))} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                  <input type="number" min="1" max="24" value={form.delayHours} onChange={e => setForm(f => ({ ...f, delayHours: e.target.value }))} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500" />
                 </div>
               )}
             </div>
             <div className="flex gap-3 p-5 border-t">
               <button onClick={() => setModalOpen(false)} className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium">Cancel</button>
-              <button onClick={handleSave} className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">Save Rule</button>
+              <button onClick={handleSave} className="flex-1 px-4 py-2 bg-sky-500 text-white rounded-lg text-sm font-medium hover:bg-sky-600">Save Rule</button>
             </div>
           </div>
         </div>

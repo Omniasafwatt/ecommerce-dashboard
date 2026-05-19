@@ -1,5 +1,5 @@
 // Admin chat conversations (admin/communication/Chat.tsx)
-export const MOCK_ADMIN_CONVOS = [
+export const MOCK_ADMIN_CONVOS: any[] = [
   {
     id: 1, orderId: 'ORD-2025-0004', customer: 'Sara Al-Hajj', subject: 'Expired product complaint',
     lastMessage: 'I received expired milk, please help!', lastTime: '16:30', unread: 2, status: 'open' as const,
@@ -29,7 +29,7 @@ export const MOCK_ADMIN_CONVOS = [
 ]
 
 // Store chat threads (store/Chat.tsx) — storeId matches store/Chat.tsx filter logic
-export const MOCK_STORE_THREADS = [
+export const MOCK_STORE_THREADS: any[] = [
   {
     id: 1, storeId: '1', orderId: 'ORD-2025-0011', customer: 'Sara Al-Hajj',
     lastMessage: 'Is my order ready yet?', lastTime: '10:38', unread: 1,
@@ -57,7 +57,7 @@ export const MOCK_STORE_THREADS = [
 ]
 
 // Driver chat contacts (driver/Chat.tsx)
-export const MOCK_DRIVER_CHATS = [
+export const MOCK_DRIVER_CHATS: any[] = [
   {
     id: 1, name: 'Sara Al-Hajj', role: 'customer' as const, orderId: 'ORD-2025-0011',
     lastMessage: 'I am outside, can you call me?', lastTime: '10:40', unread: 1,

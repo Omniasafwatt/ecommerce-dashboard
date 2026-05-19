@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { Search, Send, User, Package } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { MOCK_ADMIN_CONVOS as MOCK_CONVOS } from '@/mock/mock.chat'
 
 interface Message {
@@ -23,13 +24,14 @@ interface Conversation {
 
 
 const SENDER_STYLES: Record<string, { bg: string; align: string }> = {
-  admin: { bg: 'bg-blue-600 text-white', align: 'items-end' },
+  admin: { bg: 'bg-sky-500 text-white', align: 'items-end' },
   customer: { bg: 'bg-gray-100 text-gray-900', align: 'items-start' },
   store: { bg: 'bg-purple-100 text-purple-900', align: 'items-start' },
   driver: { bg: 'bg-orange-100 text-orange-900', align: 'items-start' },
 }
 
 export default function AdminChat() {
+  const { t } = useTranslation()
   const [convos, setConvos] = useState<Conversation[]>(MOCK_CONVOS)
   const [selected, setSelected] = useState<Conversation | null>(MOCK_CONVOS[0])
   const [input, setInput] = useState('')
@@ -61,8 +63,8 @@ export default function AdminChat() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Chat Dashboard</h1>
-        <p className="text-sm text-gray-500 mt-1">{convos.filter(c => c.unread > 0).length} unread conversations</p>
+        <h1 className="text-2xl font-bold text-gray-900">{t('chat.chatDashboard', 'Chat Dashboard')}</h1>
+        <p className="text-sm text-gray-500 mt-1">{convos.filter(c => c.unread > 0).length} {t('chat.unreadConversations', 'unread conversations')}</p>
       </div>
 
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden" style={{ height: 'calc(100vh - 200px)', minHeight: 500 }}>
@@ -72,7 +74,7 @@ export default function AdminChat() {
             <div className="p-3 border-b border-gray-100">
               <div className="relative">
                 <Search size={15} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search..." className="w-full pl-8 pr-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search..." className="w-full pl-8 pr-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500" />
               </div>
             </div>
             <div className="overflow-y-auto flex-1">
@@ -82,7 +84,7 @@ export default function AdminChat() {
                     <div className="min-w-0">
                       <div className="flex items-center gap-1.5 mb-0.5">
                         <p className="text-sm font-medium text-gray-900 truncate">{c.customer}</p>
-                        {c.unread > 0 && <span className="w-4 h-4 bg-blue-600 text-white text-xs rounded-full flex items-center justify-center flex-shrink-0">{c.unread}</span>}
+                        {c.unread > 0 && <span className="w-4 h-4 bg-sky-500 text-white text-xs rounded-full flex items-center justify-center flex-shrink-0">{c.unread}</span>}
                       </div>
                       <p className="text-xs text-blue-500 mb-0.5">{c.orderId}</p>
                       <p className="text-xs text-gray-500 truncate">{c.lastMessage}</p>
@@ -108,14 +110,14 @@ export default function AdminChat() {
                   </div>
                   <div className="flex items-center gap-1.5 mt-0.5">
                     <Package size={12} className="text-blue-500" />
-                    <p className="text-xs text-blue-600">{selected.orderId}</p>
+                    <p className="text-xs text-sky-600">{selected.orderId}</p>
                     <span className="text-gray-300">·</span>
                     <p className="text-xs text-gray-500">{selected.subject}</p>
                   </div>
                 </div>
                 <button onClick={() => setConvos(prev => prev.map(c => c.id === selected.id ? { ...c, status: 'resolved' } : c))}
                   className="px-3 py-1.5 text-xs border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-600">
-                  Mark Resolved
+                  {t('chat.markResolved', 'Mark Resolved')}
                 </button>
               </div>
 
@@ -135,15 +137,15 @@ export default function AdminChat() {
               </div>
 
               <div className="p-3 border-t border-gray-100 flex gap-2">
-                <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSend()} placeholder="Type a message..." className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                <button onClick={handleSend} disabled={!input.trim()} className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50">
+                <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSend()} placeholder="Type a message..." className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500" />
+                <button onClick={handleSend} disabled={!input.trim()} className="p-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 disabled:opacity-50">
                   <Send size={16} />
                 </button>
               </div>
             </div>
           ) : (
             <div className="flex-1 flex items-center justify-center text-gray-400 text-sm">
-              Select a conversation
+              {t('chat.selectConversation', 'Select a conversation')}
             </div>
           )}
         </div>

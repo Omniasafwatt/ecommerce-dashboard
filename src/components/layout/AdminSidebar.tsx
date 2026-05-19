@@ -48,13 +48,13 @@ import { useAuth } from '@/hooks/useAuth'
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 interface NavItem {
-  label: string
+  labelKey: string
   path: string
   icon: React.ElementType
 }
 
 interface NavGroup {
-  groupLabel: string
+  groupKey: string
   items: NavItem[]
 }
 
@@ -62,75 +62,75 @@ interface NavGroup {
 
 const NAV_GROUPS: NavGroup[] = [
   {
-    groupLabel: 'Overview',
+    groupKey: 'sidebar.overview',
     items: [
-      { label: 'Dashboard', path: '/admin/dashboard', icon: LayoutDashboard },
+      { labelKey: 'nav.dashboard', path: '/admin/dashboard', icon: LayoutDashboard },
     ],
   },
   {
-    groupLabel: 'Locations',
+    groupKey: 'sidebar.locations',
     items: [
-      { label: 'Governorates', path: '/admin/locations/governorates', icon: Map },
-      { label: 'Areas', path: '/admin/locations/areas', icon: MapPin },
-      { label: 'Stores', path: '/admin/locations/stores', icon: Store },
+      { labelKey: 'nav.governorates', path: '/admin/locations/governorates', icon: Map },
+      { labelKey: 'nav.areas', path: '/admin/locations/areas', icon: MapPin },
+      { labelKey: 'nav.stores', path: '/admin/locations/stores', icon: Store },
     ],
   },
   {
-    groupLabel: 'Users & Roles',
+    groupKey: 'sidebar.usersRoles',
     items: [
-      { label: 'Users', path: '/admin/users', icon: Users },
-      { label: 'Roles', path: '/admin/roles', icon: Shield },
+      { labelKey: 'nav.users', path: '/admin/users', icon: Users },
+      { labelKey: 'nav.roles', path: '/admin/roles', icon: Shield },
     ],
   },
   {
-    groupLabel: 'Catalog',
+    groupKey: 'sidebar.catalog',
     items: [
-      { label: 'Products', path: '/admin/catalog/products', icon: Package },
-      { label: 'Categories', path: '/admin/catalog/categories', icon: Grid },
-      { label: 'Brands', path: '/admin/catalog/brands', icon: Tag },
-      { label: 'Bundles', path: '/admin/catalog/bundles', icon: Layers },
+      { labelKey: 'nav.products', path: '/admin/catalog/products', icon: Package },
+      { labelKey: 'nav.categories', path: '/admin/catalog/categories', icon: Grid },
+      { labelKey: 'nav.brands', path: '/admin/catalog/brands', icon: Tag },
+      { labelKey: 'nav.bundles', path: '/admin/catalog/bundles', icon: Layers },
     ],
   },
   {
-    groupLabel: 'Operations',
+    groupKey: 'sidebar.operations',
     items: [
-      { label: 'Inventory', path: '/admin/inventory', icon: Warehouse },
-      { label: 'Availability', path: '/admin/availability', icon: ToggleLeft },
-      { label: 'Pricing', path: '/admin/pricing', icon: DollarSign },
-      { label: 'Promotions', path: '/admin/promotions', icon: Gift },
-      { label: 'Delivery Rules', path: '/admin/delivery-rules', icon: Truck },
-      { label: 'Payment Methods', path: '/admin/payment-methods', icon: CreditCard },
+      { labelKey: 'nav.inventory', path: '/admin/inventory', icon: Warehouse },
+      { labelKey: 'nav.availability', path: '/admin/availability', icon: ToggleLeft },
+      { labelKey: 'nav.pricing', path: '/admin/pricing', icon: DollarSign },
+      { labelKey: 'nav.promoCodes', path: '/admin/promotions', icon: Gift },
+      { labelKey: 'nav.deliveryRules', path: '/admin/delivery-rules', icon: Truck },
+      { labelKey: 'nav.paymentMethods', path: '/admin/payment-methods', icon: CreditCard },
     ],
   },
   {
-    groupLabel: 'Orders',
+    groupKey: 'sidebar.orders',
     items: [
-      { label: 'All Orders', path: '/admin/orders', icon: ShoppingCart },
-      { label: 'Reassignment', path: '/admin/orders/reassignment', icon: ArrowRightLeft },
-      { label: 'Cancellations', path: '/admin/orders/cancellations', icon: XCircle },
-      { label: 'Refunds', path: '/admin/orders/refunds', icon: RotateCcw },
+      { labelKey: 'nav.allOrders', path: '/admin/orders', icon: ShoppingCart },
+      { labelKey: 'nav.reassignment', path: '/admin/orders/reassignment', icon: ArrowRightLeft },
+      { labelKey: 'nav.cancellations', path: '/admin/orders/cancellations', icon: XCircle },
+      { labelKey: 'nav.refunds', path: '/admin/orders/refunds', icon: RotateCcw },
     ],
   },
   {
-    groupLabel: 'Finance',
+    groupKey: 'sidebar.finance',
     items: [
-      { label: 'Wallet', path: '/admin/wallet', icon: Wallet },
-      { label: 'Returns', path: '/admin/returns', icon: RefreshCw },
+      { labelKey: 'nav.wallet', path: '/admin/wallet', icon: Wallet },
+      { labelKey: 'nav.returns', path: '/admin/returns', icon: RefreshCw },
     ],
   },
   {
-    groupLabel: 'Support',
+    groupKey: 'sidebar.support',
     items: [
-      { label: 'Reviews', path: '/admin/reviews', icon: Star },
-      { label: 'Chat', path: '/admin/chat', icon: MessageSquare },
-      { label: 'Notifications', path: '/admin/notifications', icon: Bell },
+      { labelKey: 'nav.reviews', path: '/admin/reviews', icon: Star },
+      { labelKey: 'nav.chat', path: '/admin/chat', icon: MessageSquare },
+      { labelKey: 'nav.notifications', path: '/admin/notifications', icon: Bell },
     ],
   },
   {
-    groupLabel: 'Analytics',
+    groupKey: 'sidebar.analytics',
     items: [
-      { label: 'Reports', path: '/admin/reports', icon: BarChart2 },
-      { label: 'Audit Logs', path: '/admin/audit-logs', icon: FileText },
+      { labelKey: 'nav.reports', path: '/admin/reports', icon: BarChart2 },
+      { labelKey: 'nav.auditLogs', path: '/admin/audit-logs', icon: FileText },
     ],
   },
 ]
@@ -146,6 +146,7 @@ interface SidebarNavGroupProps {
 function SidebarNavGroup({ group, collapsed, defaultOpen = true }: SidebarNavGroupProps) {
   const [open, setOpen] = useState(defaultOpen)
   const location = useLocation()
+  const { t } = useTranslation()
 
   const isGroupActive = group.items.some((item) =>
     location.pathname.startsWith(item.path)
@@ -163,10 +164,10 @@ function SidebarNavGroup({ group, collapsed, defaultOpen = true }: SidebarNavGro
           onClick={toggleOpen}
           className={`
             w-full flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-semibold uppercase tracking-wider transition-colors
-            ${isGroupActive ? 'text-indigo-400' : 'text-slate-400 hover:text-slate-200'}
+            ${isGroupActive ? 'text-sky-400' : 'text-sky-400/70 hover:text-sky-200'}
           `}
         >
-          <span>{group.groupLabel}</span>
+          <span>{t(group.groupKey)}</span>
           <span className="transition-transform duration-200">
             {open ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
           </span>
@@ -175,7 +176,7 @@ function SidebarNavGroup({ group, collapsed, defaultOpen = true }: SidebarNavGro
 
       {/* Separator when collapsed */}
       {collapsed && (
-        <div className="mx-3 my-2 border-t border-slate-700/50" />
+        <div className="mx-3 my-2 border-t border-sky-800/50" />
       )}
 
       {/* Nav items */}
@@ -199,19 +200,21 @@ interface SidebarNavItemProps {
 
 function SidebarNavItem({ item, collapsed }: SidebarNavItemProps) {
   const Icon = item.icon
+  const { t } = useTranslation()
+  const label = t(item.labelKey)
 
   return (
     <NavLink
       to={item.path}
       end={item.path === '/admin/dashboard'}
-      title={collapsed ? item.label : undefined}
+      title={collapsed ? label : undefined}
       className={({ isActive }) => `
         flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 group relative
         ${collapsed ? 'justify-center' : ''}
         ${
           isActive
-            ? 'bg-indigo-600 text-white shadow-md'
-            : 'text-slate-300 hover:bg-slate-700/60 hover:text-white'
+            ? 'bg-sky-500 text-white shadow-md'
+            : 'text-sky-200 hover:bg-sky-800/60 hover:text-white'
         }
       `}
     >
@@ -219,7 +222,7 @@ function SidebarNavItem({ item, collapsed }: SidebarNavItemProps) {
         size={18}
         className="flex-shrink-0 transition-transform duration-150 group-hover:scale-110"
       />
-      {!collapsed && <span className="truncate">{item.label}</span>}
+      {!collapsed && <span className="truncate">{label}</span>}
 
       {/* Tooltip when collapsed */}
       {collapsed && (
@@ -231,7 +234,7 @@ function SidebarNavItem({ item, collapsed }: SidebarNavItemProps) {
             rtl:left-auto rtl:right-full rtl:ml-0 rtl:mr-3
           "
         >
-          {item.label}
+          {label}
         </div>
       )}
     </NavLink>
@@ -274,19 +277,19 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
   const sidebarContent = (
     <div
       className={`
-        flex flex-col h-full bg-slate-800 text-white overflow-hidden
+        flex flex-col h-full bg-sky-950 text-white overflow-hidden
         transition-all duration-300 ease-in-out ${sidebarWidthClass}
       `}
     >
       {/* ── Logo ── */}
-      <div className="flex items-center justify-between px-3 py-4 border-b border-slate-700/60">
+      <div className="flex items-center justify-between px-3 py-4 border-b border-sky-900/60">
         <div className={`flex items-center gap-2 overflow-hidden ${!sidebarOpen ? 'justify-center w-full' : ''}`}>
-          <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
-            <span className="text-white font-bold text-sm">M</span>
+          <div className={`font-bold text-xs px-2 py-1 rounded-md flex items-center justify-center flex-shrink-0 leading-tight ${sidebarOpen ? 'bg-white text-sky-500' : 'bg-sky-500 text-white'}`}>
+            {sidebarOpen ? 'MOBILE' : 'M'}
           </div>
           {sidebarOpen && (
-            <span className="font-bold text-white text-base truncate leading-tight">
-              Mobile2000
+            <span className="font-bold text-white text-sm tracking-wide">
+              2000
             </span>
           )}
         </div>
@@ -295,7 +298,7 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
         {sidebarOpen && (
           <button
             onClick={handleCollapseToggle}
-            className="hidden lg:flex items-center justify-center w-7 h-7 rounded-md text-slate-400 hover:text-white hover:bg-slate-700 transition-colors flex-shrink-0"
+            className="hidden lg:flex items-center justify-center w-7 h-7 rounded-md text-sky-300 hover:text-white hover:bg-sky-800 transition-colors flex-shrink-0"
             aria-label="Collapse sidebar"
           >
             <PanelLeftClose size={16} />
@@ -307,7 +310,7 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
       {!sidebarOpen && (
         <button
           onClick={handleCollapseToggle}
-          className="hidden lg:flex items-center justify-center w-full py-2 text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
+          className="hidden lg:flex items-center justify-center w-full py-2 text-sky-300 hover:text-white hover:bg-sky-800 transition-colors"
           aria-label="Expand sidebar"
         >
           <PanelLeftOpen size={16} />
@@ -315,10 +318,10 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
       )}
 
       {/* ── Nav groups (scrollable) ── */}
-      <nav className="flex-1 overflow-y-auto overflow-x-hidden py-3 px-2 space-y-0.5 scrollbar-thin scrollbar-thumb-slate-600 scrollbar-track-transparent">
+      <nav className="flex-1 overflow-y-auto overflow-x-hidden py-3 px-2 space-y-0.5 scrollbar-thin scrollbar-thumb-sky-700 scrollbar-track-transparent">
         {NAV_GROUPS.map((group) => (
           <SidebarNavGroup
-            key={group.groupLabel}
+            key={group.groupKey}
             group={group}
             collapsed={!sidebarOpen}
             defaultOpen
@@ -327,14 +330,14 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
       </nav>
 
       {/* ── Bottom section ── */}
-      <div className="border-t border-slate-700/60 px-2 py-3 space-y-1">
+      <div className="border-t border-sky-900/60 px-2 py-3 space-y-1">
         {/* Language toggle */}
         <button
           onClick={handleLanguageToggle}
           title={sidebarOpen ? undefined : language === 'en' ? 'Switch to Arabic' : 'Switch to English'}
           className={`
-            flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm text-slate-300
-            hover:bg-slate-700/60 hover:text-white transition-all duration-150
+            flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm text-sky-200
+            hover:bg-sky-800/60 hover:text-white transition-all duration-150
             ${!sidebarOpen ? 'justify-center' : ''}
           `}
         >
@@ -352,7 +355,7 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
             className={`flex items-center gap-2 px-3 py-2 rounded-lg ${!sidebarOpen ? 'justify-center' : ''}`}
           >
             {/* Avatar */}
-            <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center flex-shrink-0 text-xs font-bold text-white uppercase">
+            <div className="w-8 h-8 rounded-full bg-sky-500 flex items-center justify-center flex-shrink-0 text-xs font-bold text-white uppercase">
               {user.avatar ? (
                 <img
                   src={user.avatar}
@@ -370,13 +373,13 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
                   <p className="text-sm font-medium text-white truncate leading-tight">
                     {user.name}
                   </p>
-                  <p className="text-xs text-slate-400 truncate capitalize">
+                  <p className="text-xs text-sky-300/70 truncate capitalize">
                     {user.role.replace(/_/g, ' ')}
                   </p>
                 </div>
                 <button
                   onClick={handleLogout}
-                  className="flex-shrink-0 p-1.5 rounded-md text-slate-400 hover:text-red-400 hover:bg-slate-700 transition-colors"
+                  className="flex-shrink-0 p-1.5 rounded-md text-sky-300 hover:text-red-400 hover:bg-sky-800 transition-colors"
                   title={t('auth.logout', 'Logout')}
                 >
                   <LogOut size={15} />
@@ -391,7 +394,7 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
           <button
             onClick={handleLogout}
             title="Logout"
-            className="flex items-center justify-center w-full px-3 py-2 rounded-lg text-slate-400 hover:text-red-400 hover:bg-slate-700/60 transition-all"
+            className="flex items-center justify-center w-full px-3 py-2 rounded-lg text-sky-300 hover:text-red-400 hover:bg-sky-800/60 transition-all"
           >
             <LogOut size={16} />
           </button>
@@ -440,18 +443,18 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
           }
         `}
       >
-        <div className="flex flex-col h-full bg-slate-800 text-white w-64">
+        <div className="flex flex-col h-full bg-sky-950 text-white w-64">
           {/* Mobile close button */}
-          <div className="flex items-center justify-between px-3 py-4 border-b border-slate-700/60">
+          <div className="flex items-center justify-between px-3 py-4 border-b border-sky-900/60">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">M</span>
+              <div className="bg-white text-sky-500 font-bold text-xs px-2 py-1 rounded-md flex items-center justify-center leading-tight">
+                MOBILE
               </div>
-              <span className="font-bold text-white text-base">Mobile2000</span>
+              <span className="font-bold text-white text-sm tracking-wide">2000</span>
             </div>
             <button
               onClick={onMobileClose}
-              className="p-1.5 rounded-md text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
+              className="p-1.5 rounded-md text-sky-300 hover:text-white hover:bg-sky-800 transition-colors"
               aria-label="Close sidebar"
             >
               <PanelLeftClose size={16} />
@@ -461,7 +464,7 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
           <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-0.5">
             {NAV_GROUPS.map((group) => (
               <SidebarNavGroup
-                key={group.groupLabel}
+                key={group.groupKey}
                 group={group}
                 collapsed={false}
                 defaultOpen
@@ -469,10 +472,10 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
             ))}
           </nav>
 
-          <div className="border-t border-slate-700/60 px-2 py-3 space-y-1">
+          <div className="border-t border-sky-900/60 px-2 py-3 space-y-1">
             <button
               onClick={handleLanguageToggle}
-              className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-700/60 hover:text-white transition-all"
+              className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm text-sky-200 hover:bg-sky-800/60 hover:text-white transition-all"
             >
               <Globe size={16} />
               <span>{language === 'en' ? 'English' : 'العربية'}</span>
@@ -480,18 +483,18 @@ export default function AdminSidebar({ mobileOpen, onMobileClose }: AdminSidebar
 
             {user && (
               <div className="flex items-center gap-2 px-3 py-2">
-                <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-xs font-bold text-white uppercase flex-shrink-0">
+                <div className="w-8 h-8 rounded-full bg-sky-500 flex items-center justify-center text-xs font-bold text-white uppercase flex-shrink-0">
                   {user.name.charAt(0)}
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-white truncate">{user.name}</p>
-                  <p className="text-xs text-slate-400 truncate capitalize">
+                  <p className="text-xs text-sky-300/70 truncate capitalize">
                     {user.role.replace(/_/g, ' ')}
                   </p>
                 </div>
                 <button
                   onClick={handleLogout}
-                  className="p-1.5 rounded-md text-slate-400 hover:text-red-400 hover:bg-slate-700 transition-colors"
+                  className="p-1.5 rounded-md text-sky-300 hover:text-red-400 hover:bg-sky-800 transition-colors"
                 >
                   <LogOut size={15} />
                 </button>

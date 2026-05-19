@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import type { Product } from '@/types/product'
 import type { Status } from '@/types/common'
 import { MOCK_PRODUCTS as mockProducts, MOCK_CATEGORIES as mockCategories, MOCK_BRANDS as mockBrands } from '@/mock/mock.catalog'
@@ -22,6 +23,7 @@ const StatusBadge = ({ status }: { status: Status }) => (
 const ITEMS_PER_PAGE = 8
 
 export default function ProductList() {
+  const { t } = useTranslation()
   const [products, setProducts] = useState<Product[]>(mockProducts)
   const [search, setSearch] = useState('')
   const [categoryFilter, setCategoryFilter] = useState('')
@@ -71,12 +73,12 @@ export default function ProductList() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-slate-900">Products</h1>
-            <p className="text-sm text-slate-500 mt-0.5">{filtered.length} products total</p>
+            <h1 className="text-2xl font-bold text-slate-900">{t('nav.products', 'Products')}</h1>
+            <p className="text-sm text-slate-500 mt-0.5">{filtered.length} {t('common.productsTotal', 'products total')}</p>
           </div>
           <Link
             to="/admin/catalog/products/new"
-            className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors shadow-sm"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
@@ -97,14 +99,14 @@ export default function ProductList() {
                 placeholder="Search products..."
                 value={search}
                 onChange={e => { setSearch(e.target.value); setPage(1) }}
-                className="w-full pl-9 pr-4 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full pl-9 pr-4 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
               />
             </div>
 
             <select
               value={categoryFilter}
               onChange={e => { setCategoryFilter(e.target.value); setPage(1) }}
-              className="px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white text-slate-700"
+              className="px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white text-slate-700"
             >
               <option value="">All Categories</option>
               {mockCategories.map(c => (
@@ -115,7 +117,7 @@ export default function ProductList() {
             <select
               value={brandFilter}
               onChange={e => { setBrandFilter(e.target.value); setPage(1) }}
-              className="px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white text-slate-700"
+              className="px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white text-slate-700"
             >
               <option value="">All Brands</option>
               {mockBrands.map(b => (
@@ -126,7 +128,7 @@ export default function ProductList() {
             <select
               value={statusFilter}
               onChange={e => { setStatusFilter(e.target.value); setPage(1) }}
-              className="px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white text-slate-700"
+              className="px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white text-slate-700"
             >
               <option value="">All Status</option>
               <option value="active">Active</option>
@@ -138,7 +140,7 @@ export default function ProductList() {
                 onClick={resetFilters}
                 className="text-sm text-slate-500 hover:text-slate-700 px-2 py-2 underline underline-offset-2"
               >
-                Clear filters
+                {t('common.clearFilters', 'Clear filters')}
               </button>
             )}
           </div>
@@ -186,7 +188,7 @@ export default function ProductList() {
                     <p className="font-medium text-slate-900">{product.nameEn}</p>
                     <p className="text-xs text-slate-400 mt-0.5 font-arabic">{product.nameAr}</p>
                     {product.odooProductId && (
-                      <p className="text-xs text-indigo-500 mt-0.5">ID: {product.odooProductId}</p>
+                      <p className="text-xs text-sky-500 mt-0.5">ID: {product.odooProductId}</p>
                     )}
                   </td>
                   <td className="px-4 py-3">
@@ -201,7 +203,7 @@ export default function ProductList() {
                     KWD {product.price.toFixed(3)}
                   </td>
                   <td className="px-4 py-3 text-center">
-                    <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-indigo-50 text-indigo-700 text-xs font-semibold">
+                    <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-sky-50 text-sky-700 text-xs font-semibold">
                       {product.variants.length}
                     </span>
                   </td>
@@ -212,7 +214,7 @@ export default function ProductList() {
                     <div className="flex items-center justify-end gap-1">
                       <Link
                         to={`/admin/catalog/products/${product.id}`}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-colors"
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-sky-600 hover:bg-sky-50 transition-colors"
                         title="Edit"
                       >
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -274,7 +276,7 @@ export default function ProductList() {
                     onClick={() => setPage(p)}
                     className={`w-8 h-8 text-sm rounded-lg transition-colors ${
                       page === p
-                        ? 'bg-indigo-600 text-white font-medium'
+                        ? 'bg-sky-600 text-white font-medium'
                         : 'border border-slate-200 text-slate-600 hover:bg-white'
                     }`}
                   >
@@ -304,22 +306,22 @@ export default function ProductList() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
             </div>
-            <h3 className="text-center text-lg font-semibold text-slate-900 mb-1">Delete Product</h3>
+            <h3 className="text-center text-lg font-semibold text-slate-900 mb-1">{t('common.deleteProduct', 'Delete Product')}</h3>
             <p className="text-center text-sm text-slate-500 mb-6">
-              Are you sure you want to delete this product? This action cannot be undone.
+              {t('common.deleteProductDesc', 'Are you sure you want to delete this product? This action cannot be undone.')}
             </p>
             <div className="flex gap-3">
               <button
                 onClick={() => setDeleteConfirm(null)}
                 className="flex-1 px-4 py-2.5 text-sm font-medium border border-slate-200 rounded-xl text-slate-700 hover:bg-slate-50 transition-colors"
               >
-                Cancel
+                {t('common.cancel', 'Cancel')}
               </button>
               <button
                 onClick={() => deleteProduct(deleteConfirm)}
                 className="flex-1 px-4 py-2.5 text-sm font-medium bg-red-600 hover:bg-red-700 text-white rounded-xl transition-colors"
               >
-                Delete
+                {t('common.delete', 'Delete')}
               </button>
             </div>
           </div>

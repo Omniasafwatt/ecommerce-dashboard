@@ -1,5 +1,6 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Shield, Users, Check, Save } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 type Role = 'super_admin' | 'operations_admin' | 'catalog_manager' | 'store_manager' | 'driver' | 'finance' | 'support' | 'marketing'
 
@@ -78,6 +79,7 @@ const DEFAULT_PERMISSIONS: Record<Role, string[]> = {
 }
 
 export default function Roles() {
+  const { t } = useTranslation()
   const [selected, setSelected] = useState<Role>('operations_admin')
   const [permissions, setPermissions] = useState<Record<Role, string[]>>(DEFAULT_PERMISSIONS)
   const [saved, setSaved] = useState(false)
@@ -103,10 +105,10 @@ export default function Roles() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Roles & Permissions</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('nav.roles', 'Roles & Permissions')}</h1>
           <p className="text-sm text-gray-500 mt-1">Configure role-based access control</p>
         </div>
-        <button onClick={handleSave} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${saved ? 'bg-green-600 text-white' : 'bg-blue-600 text-white hover:bg-blue-700'}`}>
+        <button onClick={handleSave} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${saved ? 'bg-green-600 text-white' : 'bg-sky-500 text-white hover:bg-sky-600'}`}>
           {saved ? <><Check size={16} />Saved!</> : <><Save size={16} />Save Changes</>}
         </button>
       </div>
@@ -129,7 +131,7 @@ export default function Roles() {
                       <span className="text-xs text-gray-500">{role.users} users</span>
                     </div>
                   </div>
-                  {selected === role.id && <Shield size={14} className="text-blue-600" />}
+                  {selected === role.id && <Shield size={14} className="text-sky-600" />}
                 </button>
               ))}
             </div>
@@ -157,7 +159,7 @@ export default function Roles() {
                       return (
                         <label key={perm.id} className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${isChecked ? 'bg-blue-50 border-blue-200' : 'bg-gray-50 border-gray-200 hover:bg-gray-100'} ${isLocked ? 'opacity-70 cursor-not-allowed' : ''}`}>
                           <div onClick={() => !isLocked && toggle(perm.id)}
-                            className={`w-5 h-5 rounded flex items-center justify-center flex-shrink-0 border-2 transition-colors ${isChecked ? 'bg-blue-600 border-blue-600' : 'bg-white border-gray-300'}`}>
+                            className={`w-5 h-5 rounded flex items-center justify-center flex-shrink-0 border-2 transition-colors ${isChecked ? 'bg-sky-500 border-blue-600' : 'bg-white border-gray-300'}`}>
                             {isChecked && <Check size={12} className="text-white" />}
                           </div>
                           <span className="text-sm text-gray-700">{perm.label}</span>
